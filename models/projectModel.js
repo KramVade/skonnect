@@ -92,6 +92,11 @@ Project.init(
       allowNull: true,
       comment: "Additional notes, comments, or reasons for rejection.",
     },
+    attachment_path: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      comment: "Path to the project proposal attachment file.",
+    },
   },
   {
     sequelize,

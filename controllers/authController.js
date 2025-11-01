@@ -27,7 +27,11 @@
 import bcrypt from "bcrypt";
 import { User, sequelize } from "../models/userModel.js";
 import { SysUser } from "../models/sysUserModel.js";
-await sequelize.sync();
+
+// Using { alter: true } will try to update tables to match the models
+// without dropping them. It's useful for development but not recommended
+// for production.
+await sequelize.sync({ alter: true });
 
 // --- Admin Seeder ---
 // This function checks for and creates a default admin user if one doesn't exist.

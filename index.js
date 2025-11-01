@@ -69,29 +69,28 @@ app.engine("xian", async (filePath, options, callback) => {
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "xian");
-const partialsDir = path.join(__dirname, "views/partials");
-fs.readdir(partialsDir, (err, files) => {
-  if (err) {
-    console.error("❌ Could not read partials directory:", err);
-    return;
-  }
 
-   files
-    .filter(file => file.endsWith('.xian'))
-    .forEach(file => {
-      const partialName = file.replace('.xian', ''); 
-      const fullPath = path.join(partialsDir, file);
-
-      fs.readFile(fullPath, 'utf8', (err, content) => {
-        if (err) {
-          console.error(`❌ Failed to read partial: ${file}`, err);
-          return;
+const registerPartials = async () => {
+  const partialsDir = path.join(__dirname, "views/partials");
+  try {
+    const files = await fs.promises.readdir(partialsDir);
+    for (const file of files) {
+      if (file.endsWith('.xian')) {
+        const partialName = file.replace('.xian', '');
+        const fullPath = path.join(partialsDir, file);
+        try {
+          const content = await fs.promises.readFile(fullPath, 'utf8');
+          hbs.registerPartial(partialName, content);
+        } catch (readErr) {
+          console.error(`❌ Failed to read partial: ${file}`, readErr);
         }
-        hbs.registerPartial(partialName, content);
-        
-      });
-    });
-});
+      }
+    }
+  } catch (dirErr) {
+    console.error("❌ Could not read partials directory:", dirErr);
+  }
+};
+
 
 hbs.registerHelper('eq', function (a, b) {
   return a === b;
@@ -111,10 +110,15 @@ hbs.registerHelper('formatCurrency', function (number) {
     return parseFloat(number).toFixed(2);
 });
 
-app.use("/", router);
+const startServer = async () => {
+  await registerPartials();
+  app.use("/", router);
+
+  if (!process.env.ELECTRON) {
+    app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
+  }
+};
+
+startServer();
 
 export default app;
-
-if (!process.env.ELECTRON) {
-  app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
-}

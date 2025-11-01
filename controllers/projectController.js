@@ -9,6 +9,31 @@
 
 import { Project } from "../models/projectModel.js";
 import { SysUser } from "../models/sysUserModel.js";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+
+// --- File Upload Directory ---
+const uploadDir = 'public/uploads/attachments/';
+
+// Ensure the upload directory exists before setting up multer
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true });
+}
+
+// --- Multer Configuration for File Uploads ---
+// This sets up where to store the uploaded files and how to name them.
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'attachment-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
 
 /**
  * Middleware to check if the user has the required position (secretary or councilor).
@@ -64,10 +89,13 @@ export const createProjectPage = [isAuthorizedToPropose, (req, res) => {
 /**
  * Handles the submission of a new project proposal.
  */
-export const createProject = [isAuthorizedToPropose, async (req, res) => {
+export const createProject = [isAuthorizedToPropose, upload.single('attachment'), async (req, res) => {
   try {
     const { project_title, description, category, budget_estimate } = req.body;
-
+    
+    // The path to the uploaded file will be available in req.file.path
+    const attachment_path = req.file ? req.file.path.replace(/\\/g, "/").replace('public/', '') : null;
+    
     await Project.create({
       project_title,
       description,
@@ -75,6 +103,7 @@ export const createProject = [isAuthorizedToPropose, async (req, res) => {
       budget_estimate,
       proposed_by: req.session.userId, // Set the proposer from the session
       status: 'Pending',
+      attachment_path: attachment_path,
     });
 
     // Redirect back to the user's specific dashboard
