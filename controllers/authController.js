@@ -29,6 +29,31 @@ import { User, sequelize } from "../models/userModel.js";
 import { SysUser } from "../models/sysUserModel.js";
 await sequelize.sync();
 
+// --- Admin Seeder ---
+// This function checks for and creates a default admin user if one doesn't exist.
+const createAdminAccount = async () => {
+  try {
+    const adminEmail = 'markdaveako@gmail.com'; // Use a secure, non-public email
+    const adminPassword = 'adminpassword'; // IMPORTANT: Use a strong, unique password
+
+    const [user, created] = await SysUser.findOrCreate({
+      where: { email: adminEmail },
+      defaults: {
+        name: 'Administrator',
+        email: adminEmail,
+        password: await bcrypt.hash(adminPassword, 10),
+        position: 'admin'
+      }
+    });
+
+    if (created) console.log('Admin account created successfully.');
+  } catch (error) {
+    console.error('Error creating admin account:', error);
+  }
+};
+
+createAdminAccount();
+
 export const sysRegisterPage = (req, res) => res.render("sysregister", { title: "System User Registration" });
 export const loginPage = (req, res) => res.render("login", { title: "Login" });
 export const registerPage = (req, res) => res.render("register", { title: "Register" });
@@ -58,11 +83,17 @@ export const loginUser = async (req, res) => {
   // Redirect based on position
   if (user.position === 'chairperson') {
     return res.redirect("/chairperson/dashboard");
+  } else if (user.position === 'secretary') {
+    return res.redirect("/secretary/dashboard");
+  } else if (user.position === 'treasurer') {
+    return res.redirect("/treasurer/dashboard");
+  } else if (user.position === 'councilor') {
+    return res.redirect("/councilor/dashboard");
   }
-
-  // Default redirect for other roles (e.g., publicuser, admin, etc.)
-  // You can add more else-if blocks here for other roles.
-  res.redirect("/dashboard"); // A generic dashboard for now
+  
+  // Default redirect for 'publicuser' and any other unhandled roles.
+  // Also handles the case where an admin logs in.
+  res.redirect("/admin/dashboard");
 };
 
 export const registerUser = async (req, res) => {

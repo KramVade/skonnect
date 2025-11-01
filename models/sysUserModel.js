@@ -24,7 +24,7 @@ export const SysUser = sequelize.define("sysuser", {
     allowNull: false 
   },
   position: {
-    type: DataTypes.ENUM('publicuser', 'secretary', 'treasurer', 'councilor', 'chairperson'),
+    type: DataTypes.ENUM('publicuser', 'secretary', 'treasurer', 'councilor', 'chairperson', 'admin'),
     defaultValue: 'publicuser',
     allowNull: false
   }

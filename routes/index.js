@@ -28,13 +28,19 @@ import express from "express";
 import { homePage } from "../controllers/homeController.js";
 import { index as akinkalangIndex } from "../controllers/akinkalang.js";
 import * as adminController from "../controllers/adminController.js";
+import * as secretaryController from "../controllers/secretaryController.js";
+import * as treasurerController from "../controllers/treasurerController.js";
 import * as chairpersonController from "../controllers/chairpersonController.js";
+import * as publicController from "../controllers/publicController.js";
+import * as councilorController from "../controllers/councilorController.js";
 import { index as page1Index } from "../controllers/page1.js";
 const router = express.Router();
-router.get("/", homePage);
 
+router.get("/", homePage);
 import { loginPage, registerPage, forgotPasswordPage, dashboardPage, loginUser, registerUser, logoutUser, sysRegisterPage, registerSysUser } from "../controllers/authController.js";
 
+// Public Portal Route
+router.get("/portal", publicController.dashboardPage);
 // Admin Routes
 router.get("/admin/dashboard", adminController.dashboardPage);
 
@@ -45,6 +51,15 @@ router.post("/admin/user-management/delete/:id", adminController.deleteUser);
 
 // Chairperson Routes
 router.get("/chairperson/dashboard", chairpersonController.dashboardPage);
+
+// Secretary Routes
+router.get("/secretary/dashboard", secretaryController.dashboardPage);
+
+// Treasurer Routes
+router.get("/treasurer/dashboard", treasurerController.dashboardPage);
+
+// Councilor Routes
+router.get("/councilor/dashboard", councilorController.dashboardPage);
 
 router.get("/login", loginPage);
 router.post("/login", loginUser);

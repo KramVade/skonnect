@@ -46,7 +46,7 @@
           Login
         </button>
         <p class="text-center text-gray-600 mt-6">
-          Don't have an account? <a href="/register" class="text-blue-600 hover:underline">Register here</a>
+          Don't have an account? <a href="/sysregister" class="text-blue-600 hover:underline">Register here</a>
         </p>
       </form>
     </div>
