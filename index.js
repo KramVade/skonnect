@@ -97,6 +97,20 @@ hbs.registerHelper('eq', function (a, b) {
   return a === b;
 });
 
+hbs.registerHelper('or', function (a, b) {
+  return a || b;
+});
+
+hbs.registerHelper('formatDate', function (date) {
+  if (!date) return '';
+  return new Date(date).toLocaleDateString();
+});
+
+hbs.registerHelper('formatCurrency', function (number) {
+    if (number == null) return '0.00';
+    return parseFloat(number).toFixed(2);
+});
+
 app.use("/", router);
 
 export default app;

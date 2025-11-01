@@ -11,6 +11,7 @@ export const dashboardPage = (req, res) => {
   // Static data for the councilor dashboard. To be replaced with database queries.
   const dashboardData = {
     projectsSubmitted: 4,
+    proposeProjectLink: "/project/create", // Link to create a project
     eventsPosted: 2,
     pendingReviews: 1,
     recentActivities: [

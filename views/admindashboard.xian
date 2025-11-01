@@ -25,7 +25,7 @@
       <div class="bg-white p-6 rounded-lg shadow-md mb-6">
         <h3 class="text-lg font-semibold text-gray-700 mb-4">Quick Links</h3>
         <div class="flex space-x-4">
-          <a href="/admin/project-management/add" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Add Project</a>
+          <a href="/projects" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Manage Projects</a>
           <a href="/admin/content-management/add" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Post Announcement</a>
           <a href="/admin/reports" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors">View Reports</a>
         </div>

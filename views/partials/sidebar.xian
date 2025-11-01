@@ -6,7 +6,7 @@
       <nav class="flex flex-col p-6 space-y-4">
         <a href="/admin/dashboard" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors" id="dashboard">Dashboard</a>
         <a href="/admin/user-management" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">User Management</a>
-        <a href="/admin/project-management" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Project & Record Management</a>
+        <a href="/projects" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Project & Record Management</a>
         <a href="/admin/financial-reports" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Financial Reports</a>
         <a href="/admin/content-management" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Content & Announcements</a>
         <a href="/admin/feedback" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Feedback Center</a>

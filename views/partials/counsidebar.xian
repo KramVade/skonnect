@@ -6,29 +6,17 @@
     
     <div>
       <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Contributions</h3>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
+      <a href="/projects" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
       <div class="ml-4 space-y-1 mt-1">
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🧾 Create Project Proposal</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📋 My Projects</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">⏳ Pending Approval</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">✅ Approved Projects</a>
       </div>
-
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">📅 Events and Announcements</a>
-      <div class="ml-4 space-y-1 mt-1">
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🗞 Create Announcement</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📆 Event Calendar</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📢 Published Posts</a>
-      </div>
+      <div>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">🧾 Activity Reports</a>
     </div>
 
     <div>
       <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Engagement & Tools</h3>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Youth Engagement</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">👥 Committee Directory</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📊 Reports & Performance Tracker</a>
-    </div>
+      </div>
 
     <hr class="border-gray-700 my-4">
     <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">⚙️ Profile Settings</a>

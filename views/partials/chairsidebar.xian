@@ -6,11 +6,8 @@
     
     <div>
       <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Management</h3>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
+      <a href="/chairperson/projects" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
       <div class="ml-4 space-y-1 mt-1">
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🗂 All Projects</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📝 Pending Approvals</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">✅ Approved Projects</a>
       </div>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">🧾 Meeting Records</a>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💰 Financial Reports</a>

@@ -33,6 +33,7 @@ import * as treasurerController from "../controllers/treasurerController.js";
 import * as chairpersonController from "../controllers/chairpersonController.js";
 import * as publicController from "../controllers/publicController.js";
 import * as councilorController from "../controllers/councilorController.js";
+import * as projectController from "../controllers/projectController.js";
 import { index as page1Index } from "../controllers/page1.js";
 const router = express.Router();
 
@@ -51,6 +52,7 @@ router.post("/admin/user-management/delete/:id", adminController.deleteUser);
 
 // Chairperson Routes
 router.get("/chairperson/dashboard", chairpersonController.dashboardPage);
+router.get("/chairperson/projects", chairpersonController.projectApprovalPage);
 
 // Secretary Routes
 router.get("/secretary/dashboard", secretaryController.dashboardPage);
@@ -60,6 +62,19 @@ router.get("/treasurer/dashboard", treasurerController.dashboardPage);
 
 // Councilor Routes
 router.get("/councilor/dashboard", councilorController.dashboardPage);
+
+// Project Routes (for Secretary and Councilor)
+router.get("/project/create", projectController.createProjectPage);
+router.post("/project/create", projectController.createProject);
+router.get("/projects", projectController.listProjectsPage);
+router.post("/project/:id/approve", projectController.approveProject);
+router.post("/project/:id/reject", projectController.rejectProject);
+
+// Admin-only project routes
+router.get("/project/edit/:id", projectController.editProjectPage);
+router.post("/project/update/:id", projectController.updateProject);
+router.post("/project/delete/:id", projectController.deleteProject);
+router.get("/project/:id", projectController.viewProjectPage);
 
 router.get("/login", loginPage);
 router.post("/login", loginUser);
