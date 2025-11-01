@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>SK Dashboard - Document Management</title>
+  <style>
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+  <!-- Header -->
+  <header class="bg-blue-800 text-white shadow-lg sticky top-0 z-10">
+    <div class="container mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold tracking-wide">
+        <i class="fas fa-landmark mr-2"></i>SK Document Portal
+      </h1>
+      <div>
+        <span class="hidden sm:inline mr-4">Welcome, SK Official!</span>
+        <a href="/logout" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-colors duration-300">
+          <i class="fas fa-sign-out-alt mr-1"></i>Logout
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+    
+    <!-- Upload Section -->
+    <div class="bg-white p-6 rounded-xl shadow-md mb-8 fade-in">
+      <h2 class="text-2xl font-semibold mb-5 text-gray-800 border-b pb-3">
+        <i class="fas fa-upload mr-2 text-blue-600"></i>Upload New Document
+      </h2>
+      <form id="uploadForm" action="/upload-document" method="post" enctype="multipart/form-data">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="doc-title" class="block text-gray-700 font-medium mb-2">Document Title / Resolution No.</label>
+            <input type="text" id="doc-title" name="title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="e.g., Resolution No. 2024-01" required>
+          </div>
+          <div>
+            <label for="document-file" class="block text-gray-700 font-medium mb-2">Document File (PDF, DOCX)</label>
+            <input type="file" id="document-file" name="document" class="w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-100 file:text-blue-700 hover:file:bg-blue-200" accept=".pdf,.doc,.docx" required>
+          </div>
+        </div>
+        <div class="mt-6">
+          <label for="doc-description" class="block text-gray-700 font-medium mb-2">Description (Optional)</label>
+          <textarea id="doc-description" name="description" rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" placeholder="Briefly describe the document's purpose..."></textarea>
+        </div>
+        <div class="mt-6 text-right">
+          <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+            <i class="fas fa-cloud-upload-alt mr-2"></i>Upload
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Document List Section -->
+    <div class="bg-white p-6 rounded-xl shadow-md fade-in" style="animation-delay: 0.2s;">
+      <h2 class="text-2xl font-semibold mb-5 text-gray-800 border-b pb-3">
+        <i class="fas fa-folder-open mr-2 text-blue-600"></i>Uploaded Documents
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="bg-gray-100">
+            <tr>
+              <th class="p-3 font-semibold text-gray-600">Title / Resolution No.</th>
+              <th class="p-3 font-semibold text-gray-600">Description</th>
+              <th class="p-3 font-semibold text-gray-600">Date Uploaded</th>
+              <th class="p-3 font-semibold text-gray-600 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="document-table-body">
+            <!-- Example Row (can be replaced by dynamic data) -->
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-3 font-medium text-gray-800">Resolution No. 2024-01</td>
+              <td class="p-3 text-gray-600">A resolution for the annual youth sports festival.</td>
+              <td class="p-3 text-gray-500">2024-07-29</td>
+              <td class="p-3 text-center space-x-2">
+                <a href="#" class="text-blue-600 hover:text-blue-800" title="View/Download"><i class="fas fa-eye"></i></a>
+                <button class="text-red-600 hover:text-red-800" title="Delete"><i class="fas fa-trash-alt"></i></button>
+              </td>
+            </tr>
+            <!-- More rows will be added here by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white mt-12">
+    <div class="container mx-auto px-6 py-4 text-center">
+      <p class="text-gray-400 text-sm">&copy; 2025 Sangguniang Kabataan. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      // Simulate form submission and table update
+      const title = document.getElementById('doc-title').value;
+      const description = document.getElementById('doc-description').value;
+      const file = document.getElementById('document-file').files[0];
+      
+      if (title && file) {
+        const tableBody = document.getElementById('document-table-body');
+        const newRow = tableBody.insertRow(0);
+        newRow.className = 'border-b hover:bg-gray-50 fade-in';
+        
+        newRow.innerHTML = `
+          <td class="p-3 font-medium text-gray-800">${title}</td>
+          <td class="p-3 text-gray-600">${description || 'N/A'}</td>
+          <td class="p-3 text-gray-500">${new Date().toISOString().split('T')[0]}</td>
+          <td class="p-3 text-center space-x-2">
+            <a href="#" class="text-blue-600 hover:text-blue-800" title="View/Download"><i class="fas fa-eye"></i></a>
+            <button class="text-red-600 hover:text-red-800" title="Delete"><i class="fas fa-trash-alt"></i></button>
+          </td>
+        `;
+        
+        this.reset();
+        alert('Document "' + title + '" uploaded successfully!');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+
+<div class="flex">
+    <!-- Sidebar -->
+    <aside class="bg-gray-800 text-white w-64 min-h-screen hidden md:block">
+      <div class="p-6 font-bold text-xl border-b border-gray-700">SKONNECT Admin</div>
+      <nav class="flex flex-col p-6 space-y-4">
+        <a href="/admin/dashboard" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors" id="dashboard">Dashboard</a>
+        <a href="/admin/user-management" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">User Management</a>
+        <a href="/admin/project-management" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Project & Record Management</a>
+        <a href="/admin/financial-reports" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Financial Reports</a>
+        <a href="/admin/content-management" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Content & Announcements</a>
+        <a href="/admin/feedback" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Feedback Center</a>
+        <a href="/admin/system-configuration" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">System Configuration</a>
+        <a href="/admin/reports" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Reports & Analytics</a>
+        <hr class="border-gray-700">
+        <a href="/logout" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Logout</a>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-8">
+      
+      
+    </main>
+  </div>
+
+</body>
+</html>
