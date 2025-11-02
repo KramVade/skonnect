@@ -34,7 +34,6 @@ import * as chairpersonController from "../controllers/chairpersonController.js"
 import * as publicController from "../controllers/publicController.js";
 import * as councilorController from "../controllers/councilorController.js";
 import * as projectController from "../controllers/projectController.js";
-import { index as page1Index } from "../controllers/page1.js";
 const router = express.Router();
 
 router.get("/", homePage);
@@ -76,6 +75,9 @@ router.post("/project/update/:id", projectController.updateProject);
 router.post("/project/delete/:id", projectController.deleteProject);
 router.get("/project/:id", projectController.viewProjectPage);
 
+// Public project routes
+router.get("/projects/approved", projectController.listApprovedProjectsPage);
+
 router.get("/login", loginPage);
 router.post("/login", loginUser);
 
@@ -100,35 +102,5 @@ router.get("/akinkalang", akinkalangIndex);
 router.get("/home.xian", (req, res) => {
   res.render("home"); 
 });
-
-router.get("/page1.xian", page1Index);
-router.get("/page2.xian", (req, res) => {
-  res.render("page2");
-});
-router.get("/page3.xian", (req, res) => {
-  res.render("page3");
-}); 
-router.get("/page4.xian", (req, res) => {
-  res.render("page1");
-});
-router.get("/page5.xian", (req, res) => {
-  res.render("page2");
-});
-router.get("/page6.xian", (req, res) => {
-  res.render("page3");
-}); 
-router.get("/page7.xian", (req, res) => {
-  res.render("page1");
-});
-router.get("/page8.xian", (req, res) => {
-  res.render("page2");
-});
-router.get("/page9.xian", (req, res) => {
-  res.render("page3");
-}); 
-router.get("/page10.xian", (req, res) => {
-  res.render("page3");
-}); 
-
 
 export default router;

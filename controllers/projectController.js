@@ -254,3 +254,23 @@ export const viewProjectPage = [isSkOfficial, async (req, res) => {
     res.status(500).send("Failed to fetch project details.");
   }
 }];
+
+/**
+ * Renders the public-facing page with a list of all approved projects.
+ */
+export const listApprovedProjectsPage = async (req, res) => {
+  try {
+    const approvedProjectInstances = await Project.findAll({
+      where: { status: 'Approved' },
+      order: [['date_approved', 'DESC']],
+    });
+
+    // Convert instances to plain objects for rendering
+    const approvedProjects = approvedProjectInstances.map(p => p.get({ plain: true }));
+
+    res.render("approvedprojects", { title: "Approved Projects", approvedProjects, active: 'projects' });
+  } catch (error) {
+    console.error("Error fetching approved projects:", error);
+    res.status(500).send("Failed to fetch approved projects.");
+  }
+};

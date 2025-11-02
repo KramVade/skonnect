@@ -1,0 +1,41 @@
+{{> myhead}}
+<body class="bg-gray-100">
+  <div class="flex min-h-screen">
+    {{> publicsidebar }}
+    <main class="flex-1 p-8">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Approved Projects</h1>
+        <p class="text-gray-600 mb-8">Browse through the projects that have been approved for implementation in our community.</p>
+
+        {{#if approvedProjects}}
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {{#each approvedProjects}}
+              <div class="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                <div class="p-6">
+                  <h3 class="text-lg font-semibold text-gray-800 mb-2">{{this.project_title}}</h3>
+                  <p class="text-sm text-gray-600 mb-4 h-20 overflow-hidden">{{this.description}}</p>
+                  
+                  <div class="text-xs text-gray-500 space-y-1">
+                    <p><span class="font-semibold">Category:</span> {{this.category}}</p>
+                    <p><span class="font-semibold">Date Approved:</span> {{#formatDate this.date_approved}}{{/formatDate}}</p>
+                    <p><span class="font-semibold">Budget Estimate:</span> ₱{{this.budget_estimate}}</p>
+                  </div>
+
+                  {{#if this.attachment_path}}
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                      <a href="/{{this.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:text-blue-800">View Documentation &rarr;</a>
+                    </div>
+                  {{/if}}
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        {{else}}
+          <div class="text-center py-16 bg-white rounded-lg shadow-md">
+            <p class="text-gray-500">There are currently no approved projects to display.</p>
+          </div>
+        {{/if}}
+      </div>
+    </main>
+  </div>
+{{> myfoot}}
