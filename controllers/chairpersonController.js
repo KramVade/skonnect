@@ -8,6 +8,7 @@
 */
 import { Project } from "../models/projectModel.js";
 import { SysUser } from "../models/sysUserModel.js";
+import { FinancialReport } from "../models/financialReportModel.js";
 
 export const dashboardPage = (req, res) => {
   // In a real application, you would fetch this data from your database.
@@ -28,7 +29,7 @@ export const dashboardPage = (req, res) => {
 
   if (!req.session.userId || req.session.position !== 'chairperson') return res.redirect("/login");
 
-  res.render("chairdashboard", { title: "Chairperson Dashboard", ...dashboardData });
+  res.render("chairdashboard", { title: "Chairperson Dashboard", ...dashboardData, active: 'dashboard' });
 };
 
 /**
@@ -56,11 +57,93 @@ export const projectApprovalPage = async (req, res) => {
     });
 
     const pendingProjects = pendingProjectInstances.map(p => p.get({ plain: true }));
-    const approvedProjects = approvedProjectInstances.map(p => p.get({ plain: true }));
+    const ciaProjects = approvedProjectInstances.map(p => p.get({ plain: true }));
 
-    res.render("project-approval", { title: "Project Approval", pendingProjects, approvedProjects, layout: false });
+    res.render("project-approval", { 
+      title: "Project Approval", 
+      pendingProjects, 
+      approvedProjects, 
+      active: 'projects', 
+      layout: false 
+    });
   } catch (error) {
     console.error("Error fetching pending projects:", error);
     res.status(500).send("Failed to fetch pending projects.");
   }
 };
+
+/**
+ * Renders the financial reports management page for the chairperson.
+ */
+export const financialReportsPage = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'chairperson') {
+    return res.redirect("/login");
+  }
+
+  try {
+    const reportInstances = await FinancialReport.findAll({
+      include: [
+        { model: Project, attributes: ['project_title'] },
+        { model: SysUser, as: 'submitter', attributes: ['name'] }
+      ],
+      order: [['date_submitted', 'DESC']],
+    });
+    const reports = reportInstances.map(r => r.get({ plain: true }));
+
+    res.render("chair-financial-reports", {
+      title: "Financial Reports",
+      reports,
+      active: 'reports',
+      layout: false
+    });
+  } catch (error) {
+    console.error("Error fetching financial reports:", error);
+    res.status(500).send("Failed to fetch financial reports.");
+  }
+};
+
+/**
+ * Middleware to check if the user is the chairperson.
+ */
+const isChairperson = (req, res, next) => {
+  if (!req.session.userId || req.session.position !== 'chairperson') {
+    return res.redirect("/login");
+  }
+  next();
+};
+
+/**
+ * Approves a financial report. (Chairperson only)
+ */
+export const approveFinancialReport = [isChairperson, async (req, res) => {
+  try {
+    await FinancialReport.update(
+      {
+        status: 'Approved',
+        approved_by: req.session.userId,
+        date_approved: new Date(),
+      },
+      { where: { report_id: req.params.id } }
+    );
+    res.redirect('/chairperson/financial-reports');
+  } catch (error) {
+    console.error("Error approving financial report:", error);
+    res.status(500).send("Failed to approve report.");
+  }
+}];
+
+/**
+ * Rejects a financial report. (Chairperson only)
+ */
+export const rejectFinancialReport = [isChairperson, async (req, res) => {
+  try {
+    await FinancialReport.update(
+      { status: 'Rejected', approved_by: req.session.userId },
+      { where: { report_id: req.params.id } }
+    );
+    res.redirect('/chairperson/financial-reports');
+  } catch (error) {
+    console.error("Error rejecting financial report:", error);
+    res.status(500).send("Failed to reject report.");
+  }
+}];

@@ -52,6 +52,9 @@ router.post("/admin/user-management/delete/:id", adminController.deleteUser);
 // Chairperson Routes
 router.get("/chairperson/dashboard", chairpersonController.dashboardPage);
 router.get("/chairperson/projects", chairpersonController.projectApprovalPage);
+router.get("/chairperson/financial-reports", chairpersonController.financialReportsPage);
+router.post("/financial-report/:id/approve", chairpersonController.approveFinancialReport);
+router.post("/financial-report/:id/reject", chairpersonController.rejectFinancialReport);
 
 // Secretary Routes
 router.get("/secretary/dashboard", secretaryController.dashboardPage);
