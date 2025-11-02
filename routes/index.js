@@ -58,6 +58,9 @@ router.get("/secretary/dashboard", secretaryController.dashboardPage);
 
 // Treasurer Routes
 router.get("/treasurer/dashboard", treasurerController.dashboardPage);
+router.get("/treasurer/financial-reports", treasurerController.financialReportsPage);
+router.get("/treasurer/financial-reports/create", treasurerController.createFinancialReportPage);
+router.post("/treasurer/financial-reports/create", treasurerController.createFinancialReport);
 
 // Councilor Routes
 router.get("/councilor/dashboard", councilorController.dashboardPage);
