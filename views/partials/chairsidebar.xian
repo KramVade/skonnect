@@ -6,11 +6,18 @@
     
     <div>
       <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Management</h3>
-      <a href="/chairperson/projects" class="block {{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">Project Approvals</a>
-      <a href="/chairperson/financial-reports" class="block {{#if (eq active 'reports')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">Financial Reports</a>
+      <a href="/chairperson/projects" class="{{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">📁 Project Approvals</a>
+      <a href="/chairperson/announcements" class="{{#if (eq active 'announcements')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">📰 Announcement Approvals</a>
+      <a href="/chairperson/financial-reports" class="{{#if (eq active 'reports')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">💰 Financial Oversight</a>
+    </div>
+
+    <div>
+      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Community</h3>
+      <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Concerns</a>
     </div>
 
     <hr class="border-gray-700 my-4">
+    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">⚙️ Profile Settings</a>
     <a href="/logout" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Logout</a>
   </nav>
 </aside>

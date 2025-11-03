@@ -57,12 +57,12 @@ export const projectApprovalPage = async (req, res) => {
     });
 
     const pendingProjects = pendingProjectInstances.map(p => p.get({ plain: true }));
-    const ciaProjects = approvedProjectInstances.map(p => p.get({ plain: true }));
+    const approvedProjects = approvedProjectInstances.map(p => p.get({ plain: true }));
 
     res.render("project-approval", { 
       title: "Project Approval", 
       pendingProjects, 
-      approvedProjects, 
+      approvedProjects,
       active: 'projects', 
       layout: false 
     });

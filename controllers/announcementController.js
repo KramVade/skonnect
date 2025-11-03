@@ -116,7 +116,7 @@ export const announcementApprovalPage = [isChairperson, async (req, res) => {
       nest: true
     });
 
-    res.render("announcement-approval", {
+    res.render("chairannouncementproposal", {
       title: "Announcement Approval",
       pendingAnnouncements,
       otherAnnouncements,
