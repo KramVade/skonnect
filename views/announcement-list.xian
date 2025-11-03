@@ -1,0 +1,69 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{#if (eq userPosition 'secretary')}}
+            {{> secsidebar}}
+        {{else if (eq userPosition 'councilor')}}
+            {{> counsidebar}}
+        {{/if}}
+
+        <main class="flex-1 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold">{{title}}</h1>
+                <a href="/announcement/create" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">Create New Announcement</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Your Submitted Announcements</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 font-semibold text-gray-600">Title</th>
+                                <th class="p-3 font-semibold text-gray-600">Category</th>
+                                <th class="p-3 font-semibold text-gray-600">Date Created</th>
+                                <th class="p-3 font-semibold text-gray-600">Last Updated</th>
+                                <th class="p-3 font-semibold text-gray-600">Status</th>
+                                <th class="p-3 font-semibold text-gray-600 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#if announcements}}
+                                {{#each announcements}}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-3">{{this.title}}</td>
+                                    <td class="p-3">{{this.category}}</td>
+                                    <td class="p-3">{{formatDate this.date_created}}</td>
+                                    <td class="p-3">{{formatDate this.last_updated}}</td>
+                                    <td class="p-3">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                                            {{#if (eq this.status 'Approved')}}bg-green-200 text-green-800{{/if}}
+                                            {{#if (eq this.status 'Pending Approval')}}bg-yellow-200 text-yellow-800{{/if}}
+                                            {{#if (eq this.status 'Rejected')}}bg-red-200 text-red-800{{/if}}
+                                            {{#if (eq this.status 'Draft')}}bg-gray-200 text-gray-800{{/if}}">
+                                            {{this.status}}
+                                        </span>
+                                    </td>
+                                    <td class="p-3 text-center">
+                                        <a href="/announcement/{{this.announcement_id}}" class="text-blue-600 hover:underline">View/Edit</a>
+                                        {{#if (or (eq this.status 'Draft') (eq this.status 'Rejected'))}}
+                                        <form action="/announcement/delete/{{this.announcement_id}}" method="POST" class="inline-block ml-4" onsubmit="return confirm('Are you sure you want to delete this announcement?');">
+                                            <button type="submit" class="text-red-600 hover:underline">Delete</button>
+                                        </form>
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            {{else}}
+                                <tr>
+                                    <td colspan="6" class="p-4 text-center text-gray-500">You have not created any announcements yet.</td>
+                                </tr>
+                            {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}

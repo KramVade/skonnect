@@ -34,6 +34,7 @@ import * as chairpersonController from "../controllers/chairpersonController.js"
 import * as publicController from "../controllers/publicController.js";
 import * as councilorController from "../controllers/councilorController.js";
 import * as projectController from "../controllers/projectController.js";
+import * as announcementController from "../controllers/announcementController.js";
 const router = express.Router();
 
 router.get("/", homePage);
@@ -55,6 +56,9 @@ router.get("/chairperson/projects", chairpersonController.projectApprovalPage);
 router.get("/chairperson/financial-reports", chairpersonController.financialReportsPage);
 router.post("/financial-report/:id/approve", chairpersonController.approveFinancialReport);
 router.post("/financial-report/:id/reject", chairpersonController.rejectFinancialReport);
+router.get("/chairperson/announcements", announcementController.announcementApprovalPage);
+router.post("/announcement/:id/approve", announcementController.approveAnnouncement);
+router.post("/announcement/:id/reject", announcementController.rejectAnnouncement);
 
 // Secretary Routes
 router.get("/secretary/dashboard", secretaryController.dashboardPage);
@@ -81,6 +85,14 @@ router.get("/project/edit/:id", projectController.editProjectPage);
 router.post("/project/update/:id", projectController.updateProject);
 router.post("/project/delete/:id", projectController.deleteProject);
 router.get("/project/:id", projectController.viewProjectPage);
+
+// Announcement Routes (for Secretary and Councilor)
+router.get("/announcement/create", announcementController.createAnnouncementPage);
+router.get("/announcements", announcementController.listAnnouncementsPage);
+router.post("/announcement/create", announcementController.createAnnouncement);
+router.get("/announcement/:id", announcementController.editAnnouncementPage);
+router.post("/announcement/update/:id", announcementController.updateAnnouncement);
+router.post("/announcement/delete/:id", announcementController.deleteAnnouncement);
 
 // Public project routes
 router.get("/projects/approved", projectController.listApprovedProjectsPage);

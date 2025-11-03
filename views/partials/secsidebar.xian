@@ -15,7 +15,7 @@
     <div>
       <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Coordination</h3>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💰 Financial Records</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📰 Announcements & Events</a>
+      <a href="/announcements" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📰 Announcements & Events</a>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Communication</a>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">👥 SK Officers Directory</a>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📊 Reports</a>

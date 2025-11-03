@@ -9,7 +9,7 @@
       <a href="/projects" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
       <div class="ml-4 space-y-1 mt-1">
       </div>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">📅 Events and Announcements</a>
+      <a href="/announcements" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">📅 Events and Announcements</a>
       <div>
       <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">🧾 Activity Reports</a>
     </div>

@@ -1,0 +1,63 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{#if (eq userPosition 'secretary')}}
+            {{> secsidebar}}
+        {{else if (eq userPosition 'councilor')}}
+            {{> counsidebar}}
+        {{/if}}
+
+        <main class="flex-1 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold">{{title}}</h1>
+                <a href="/announcements" class="text-blue-600 hover:underline">&larr; Back to My Announcements</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-md max-w-4xl mx-auto">
+                <form action="/announcement/update/{{announcement.announcement_id}}" method="POST" enctype="multipart/form-data">
+                    <!-- Announcement Title -->
+                    <div class="mb-6">
+                        <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Announcement Title</label>
+                        <input type="text" id="title" name="title" value="{{announcement.title}}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+
+                    <!-- Announcement Content -->
+                    <div class="mb-6">
+                        <label for="content" class="block text-gray-700 text-sm font-bold mb-2">Content</label>
+                        <textarea id="content" name="content" rows="10" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{announcement.content}}</textarea>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="mb-6">
+                        <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category</label>
+                        <select id="category" name="category" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="News" {{#if (eq announcement.category 'News')}}selected{{/if}}>News</option>
+                            <option value="Event" {{#if (eq announcement.category 'Event')}}selected{{/if}}>Event</option>
+                            <option value="Notice" {{#if (eq announcement.category 'Notice')}}selected{{/if}}>Notice</option>
+                        </select>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-8">
+                        <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Featured Image (Optional)</label>
+                        {{#if announcement.image}}
+                            <p class="text-sm text-gray-600 mb-2">Current image: <a href="/{{announcement.image}}" target="_blank" class="text-blue-500">{{announcement.image}}</a></p>
+                        {{/if}}
+                        <input type="file" id="image" name="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <p class="text-xs text-gray-500 mt-1">Upload a new image to replace the current one.</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex items-center justify-end space-x-4 border-t pt-6">
+                        <button type="submit" name="status" value="Draft" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors">
+                            Save as Draft
+                        </button>
+                        <button type="submit" name="status" value="Pending Approval" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition-colors">
+                            Submit for Approval
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}

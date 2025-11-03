@@ -111,8 +111,5 @@ Project.init(
 Project.belongsTo(SysUser, { as: 'proposer', foreignKey: 'proposed_by' });
 Project.belongsTo(SysUser, { as: 'approver', foreignKey: 'approved_by' });
 
-SysUser.hasMany(Project, { foreignKey: 'proposed_by' });
-SysUser.hasMany(Project, { foreignKey: 'approved_by' });
-
 
 export { Project };

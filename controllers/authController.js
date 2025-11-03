@@ -110,6 +110,13 @@ export const registerUser = async (req, res) => {
 
 export const registerSysUser = async (req, res) => {
   const { name, email, password } = req.body;
+
+  // Check if user with the same email already exists
+  const existingUser = await SysUser.findOne({ where: { email } });
+  if (existingUser) {
+    return res.status(409).send("User with this email already exists.");
+  }
+
   const hashed = await bcrypt.hash(password, 10);
   // The 'position' will default to 'publicuser' as defined in the model
   const user = await SysUser.create({ name, email, password: hashed });

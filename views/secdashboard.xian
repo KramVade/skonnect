@@ -27,7 +27,7 @@
         <div class="flex space-x-4">
           <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Add New Minutes</a>
           <a href="/project/create" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Create Project Entry</a>
-          <a href="#" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors">Draft Announcement</a>
+          <a href="/announcement/create" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors">Draft Announcement</a>
         </div>
       </div>
 
