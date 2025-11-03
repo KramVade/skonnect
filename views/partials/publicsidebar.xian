@@ -3,7 +3,7 @@
   <div class="p-6 font-bold text-xl border-b border-gray-700">SK Public Portal</div>
   <nav class="flex flex-col p-6 space-y-2 text-sm">
     <a href="/publicdashboard" class="{{#if (eq active 'home')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">🏠 Home</a>
-    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">📢 Announcements & News</a>
+    <a href="/announcements/public" class="{{#if (eq active 'announcements')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">📢 Announcements & News</a>
     <a href="/projects/approved" class="{{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">🧩 Projects</a>
     <a href="/financial-reports/public" class="{{#if (eq active 'financials')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">💰 Financial Transparency</a>
     <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Suggestions</a>

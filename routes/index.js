@@ -96,6 +96,7 @@ router.post("/announcement/delete/:id", announcementController.deleteAnnouncemen
 
 // Public project routes
 router.get("/projects/approved", projectController.listApprovedProjectsPage);
+router.get("/announcements/public", publicController.publicAnnouncementsPage);
 
 // Public financial reports route
 router.get("/financial-reports/public", treasurerController.publicFinancialReportsPage);
