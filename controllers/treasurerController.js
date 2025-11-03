@@ -66,8 +66,15 @@ export const financialReportsPage = async (req, res) => {
   }
 
   try {
-    // Placeholder data - replace with actual database query for FinancialReport model
-    const reports = []; 
+    // Fetch all financial reports submitted by the currently logged-in treasurer
+    const reportInstances = await FinancialReport.findAll({
+      where: { submitted_by: req.session.userId },
+      include: [{ model: Project, attributes: ['project_title'] }],
+      order: [['date_submitted', 'DESC']],
+    });
+
+    // Convert Sequelize instances to plain objects for the template
+    const reports = reportInstances.map(r => r.get({ plain: true }));
 
     res.render("financial-reports", { 
       title: "Financial Reports", 
@@ -77,6 +84,42 @@ export const financialReportsPage = async (req, res) => {
   } catch (error) {
     console.error("Error fetching financial reports:", error);
     res.status(500).send("Failed to fetch financial reports.");
+  }
+};
+
+/**
+ * Renders the page for viewing a single financial report.
+ */
+export const viewFinancialReportPage = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'treasurer') {
+    return res.redirect("/login");
+  }
+
+  try {
+    const reportId = req.params.id;
+    const reportInstance = await FinancialReport.findOne({
+      where: { 
+        report_id: reportId,
+        submitted_by: req.session.userId // Ensure treasurer can only view their own reports
+      },
+      include: [{ model: Project, attributes: ['project_title'] }],
+    });
+
+    if (!reportInstance) {
+      return res.status(404).send("Financial report not found or you do not have permission to view it.");
+    }
+
+    const report = reportInstance.get({ plain: true });
+    report.isBalancePositive = parseFloat(report.balance) > 0;
+
+    res.render("view-financial-report", {
+      title: `View Financial Report - ${report.Project.project_title}`,
+      report,
+      active: 'reports'
+    });
+  } catch (error) {
+    console.error("Error fetching financial report:", error);
+    res.status(500).send("Failed to load page.");
   }
 };
 
@@ -137,3 +180,29 @@ export const createFinancialReport = [upload.single('attachment'), async (req, r
     res.status(500).send("Failed to create financial report.");
   }
 }];
+
+/**
+ * Renders the public-facing financial transparency page.
+ * Fetches only 'Approved' financial reports.
+ */
+export const publicFinancialReportsPage = async (req, res) => {
+  try {
+    const reportInstances = await FinancialReport.findAll({
+      where: { status: 'Approved' },
+      include: [{ model: Project, attributes: ['project_title'] }],
+      order: [['date_approved', 'DESC']],
+    });
+
+    const reports = reportInstances.map(r => r.get({ plain: true }));
+
+    res.render("public-financial-reports", {
+      title: "Financial Transparency",
+      reports,
+      active: 'financials', // For active link highlighting in a public sidebar
+      layout: false // Assuming a different layout for public pages
+    });
+  } catch (error) {
+    console.error("Error fetching public financial reports:", error);
+    res.status(500).send("Failed to load financial reports.");
+  }
+};

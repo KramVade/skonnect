@@ -62,6 +62,7 @@ router.get("/secretary/dashboard", secretaryController.dashboardPage);
 // Treasurer Routes
 router.get("/treasurer/dashboard", treasurerController.dashboardPage);
 router.get("/treasurer/financial-reports", treasurerController.financialReportsPage);
+router.get("/treasurer/financial-reports/view/:id", treasurerController.viewFinancialReportPage);
 router.get("/treasurer/financial-reports/create", treasurerController.createFinancialReportPage);
 router.post("/treasurer/financial-reports/create", treasurerController.createFinancialReport);
 
@@ -83,6 +84,9 @@ router.get("/project/:id", projectController.viewProjectPage);
 
 // Public project routes
 router.get("/projects/approved", projectController.listApprovedProjectsPage);
+
+// Public financial reports route
+router.get("/financial-reports/public", treasurerController.publicFinancialReportsPage);
 
 router.get("/login", loginPage);
 router.post("/login", loginUser);
