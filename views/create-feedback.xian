@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .feedback-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        .feedback-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+        .form-label {
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <div class="feedback-header">
+            <h2>{{ title }}</h2>
+            <p class="text-muted">We value your input. Please share your thoughts with us.</p>
+        </div>
+
+        {{#if sent}}
+            <div class="alert alert-success" role="alert">
+                Thank you! Your feedback has been successfully submitted.
+            </div>
+        {{/if}}
+
+        <form action="/feedback/create" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name (Optional)</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="What is this about?" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Please provide details here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-custom w-100">Submit Feedback</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -26,6 +26,11 @@ export const SysUser = sequelize.define("sysuser", {
     type: DataTypes.ENUM('publicuser', 'secretary', 'treasurer', 'councilor', 'chairperson', 'admin'),
     defaultValue: 'publicuser',
     allowNull: false
+  },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    comment: "Path to the user's profile picture."
   }
 });
 

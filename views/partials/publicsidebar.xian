@@ -6,16 +6,8 @@
     <a href="/announcements/public" class="{{#if (eq active 'announcements')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">📢 Announcements & News</a>
     <a href="/projects/approved" class="{{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">🧩 Projects</a>
     <a href="/financial-reports/public" class="{{#if (eq active 'financials')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">💰 Financial Transparency</a>
-    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Suggestions</a>
-    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">👥 About Us</a>
-    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">📞 Contact</a>
-
-    <div class="pt-4 mt-4 border-t border-gray-700">
-        <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Tools</h3>
-        <div class="relative px-3">
-            <input type="search" placeholder="🔍 Search..." class="bg-gray-700 text-white w-full rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-        </div>
-    </div>
+    <a href="/feedback/create" class="{{#if (eq active 'feedback')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">💬 Feedback & Suggestions</a>
+    <a href="/about-us" class="{{#if (eq active 'about')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">👥 About Us</a>
 
     <hr class="border-gray-700 my-4">
     <a href="/login" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Login</a>

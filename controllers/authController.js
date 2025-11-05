@@ -67,17 +67,24 @@ export const dashboardPage = (req, res) => {
   res.render("dashboard", { title: "Dashboard" });
 };
 
+export const waitForApprovalPage = (req, res) => {
+  if (!req.session.userId) return res.redirect("/login");
+  if (req.session.position !== 'publicuser') return res.redirect(`/${req.session.position}/dashboard`);
+
+  res.render("waitforapproval", { title: "Pending Approval" });
+};
+
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const user = await SysUser.findOne({ where: { email } });
-
-  if (!user) {
-    return res.status(401).send("User not found");
-  }
-
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) {
-    return res.status(401).send("Incorrect password");
+  
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    // If login fails, re-render the login page with an error message.
+    return res.render("login", {
+      title: "Login",
+      error: "Invalid email or password. Please try again.",
+      email: email, // Pass back the email to repopulate the field
+    });
   }
 
   // Store user info in session
@@ -93,6 +100,8 @@ export const loginUser = async (req, res) => {
     return res.redirect("/treasurer/dashboard");
   } else if (user.position === 'councilor') {
     return res.redirect("/councilor/dashboard");
+  } else if (user.position === 'publicuser') {
+    return res.redirect("/wait-for-approval");
   }
   
   // Default redirect for 'publicuser' and any other unhandled roles.
@@ -120,7 +129,11 @@ export const registerSysUser = async (req, res) => {
   const hashed = await bcrypt.hash(password, 10);
   // The 'position' will default to 'publicuser' as defined in the model
   const user = await SysUser.create({ name, email, password: hashed });
-  res.redirect("/login"); // Redirect to login after successful registration
+
+  // Automatically log in the user and redirect them
+  req.session.userId = user.id;
+  req.session.position = user.position; // which is 'publicuser'
+  res.redirect("/wait-for-approval");
 };
 
 export const logoutUser = (req, res) => {

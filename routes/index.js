@@ -35,13 +35,15 @@ import * as publicController from "../controllers/publicController.js";
 import * as councilorController from "../controllers/councilorController.js";
 import * as projectController from "../controllers/projectController.js";
 import * as announcementController from "../controllers/announcementController.js";
+import * as feedbackController from "../controllers/feedbackController.js";
 const router = express.Router();
 
 router.get("/", homePage);
-import { loginPage, registerPage, forgotPasswordPage, dashboardPage, loginUser, registerUser, logoutUser, sysRegisterPage, registerSysUser } from "../controllers/authController.js";
+import { loginPage, registerPage, forgotPasswordPage, dashboardPage, loginUser, registerUser, logoutUser, sysRegisterPage, registerSysUser, waitForApprovalPage } from "../controllers/authController.js";
 
 // Public Portal Route
 router.get("/portal", publicController.dashboardPage);
+router.get("/about-us", publicController.aboutUsPage);
 // Admin Routes
 router.get("/admin/dashboard", adminController.dashboardPage);
 
@@ -62,6 +64,7 @@ router.post("/announcement/:id/reject", announcementController.rejectAnnouncemen
 
 // Secretary Routes
 router.get("/secretary/dashboard", secretaryController.dashboardPage);
+router.get("/secretary/feedback", feedbackController.viewSecretaryFeedbackPage);
 
 // Treasurer Routes
 router.get("/treasurer/dashboard", treasurerController.dashboardPage);
@@ -101,6 +104,14 @@ router.get("/announcements/public", publicController.publicAnnouncementsPage);
 // Public financial reports route
 router.get("/financial-reports/public", treasurerController.publicFinancialReportsPage);
 
+// Feedback Routes
+// Redirect /feedback to the creation page for public users.
+// Officials can access the view page via a different, protected route if needed.
+router.get("/feedback", (req, res) => res.redirect('/feedback/create'));
+router.get("/feedback/view", feedbackController.viewFeedbackPage); // Keep a protected route for officials
+router.get("/feedback/create", feedbackController.createFeedbackPage);
+router.post("/feedback/create", feedbackController.submitFeedback);
+
 router.get("/login", loginPage);
 router.post("/login", loginUser);
 
@@ -112,6 +123,9 @@ router.post("/register", registerUser);
 router.get("/forgot-password", forgotPasswordPage);
 router.get("/dashboard", dashboardPage);
 router.get("/logout", logoutUser);
+
+// Route for the "wait for approval" page
+router.get("/wait-for-approval", waitForApprovalPage);
 
 router.get("/selection", (req, res) => {
   res.render("selection");

@@ -1,23 +1,25 @@
 <!-- Sidebar for SK Chairperson -->
-<aside class="bg-gray-800 text-white w-64 min-h-screen flex-shrink-0 hidden md:block">
+<aside class="bg-gray-800 text-white w-64 min-h-screen flex flex-col justify-between flex-shrink-0 hidden md:block">
   <div class="p-6 font-bold text-xl border-b border-gray-700">SKONNECT Chairperson</div>
-  <nav class="flex flex-col p-6 space-y-2 text-sm">
-    <a href="/chairperson/dashboard" class="{{#if (eq active 'dashboard')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">🏠 Dashboard</a>
-    
-    <div>
-      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Management</h3>
-      <a href="/chairperson/projects" class="{{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">📁 Project Approvals</a>
-      <a href="/chairperson/announcements" class="{{#if (eq active 'announcements')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">📰 Announcement Approvals</a>
-      <a href="/chairperson/financial-reports" class="{{#if (eq active 'reports')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">💰 Financial Oversight</a>
+  <nav class="flex-grow p-6 text-sm">
+    <div class="space-y-4">
+      <a href="/chairperson/dashboard" class="block {{#if (eq active 'dashboard')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">🏠 Dashboard</a>
+      
+      <div>
+        <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Management</h3>
+        <div class="space-y-1 mt-1">
+          <a href="/chairperson/projects" class="block {{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">📁 Project Approvals</a>
+          <a href="/chairperson/announcements" class="block {{#if (eq active 'announcements')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">📰 Announcement Approvals</a>
+          <a href="/chairperson/financial-reports" class="block {{#if (eq active 'reports')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">💰 Financial Oversight</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Community</h3>
+        <a href="/feedback/view" class="block {{#if (eq active 'feedback')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">💬 Feedback & Concerns</a>
+      </div>
     </div>
-
-    <div>
-      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Community</h3>
-      <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Concerns</a>
-    </div>
-
-    <hr class="border-gray-700 my-4">
-    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">⚙️ Profile Settings</a>
-    <a href="/logout" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Logout</a>
   </nav>
+  <div class="p-6 border-t border-gray-700">
+    <a href="/logout" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors text-sm">Logout</a>
+  </div>
 </aside>

@@ -119,6 +119,27 @@ const startServer = async () => {
   }
 };
 
+// ensure body parsing is enabled (add if not present)
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Place this BEFORE any auth middleware or before mounting routes that require auth
+app.post('/feedback/submit', async (req, res) => {
+    try {
+        const { feedback_type, message, name } = req.body;
+        const submitterName = (name && name.trim()) ? name.trim() : 'Anonymous';
+
+        // persist/send/log as needed
+        // const Feedback = require('./models/Feedback');
+        // await new Feedback({ type: feedback_type, message, name: submitterName, createdAt: new Date() }).save();
+
+        return res.redirect('/feedback?sent=1');
+    } catch (err) {
+        console.error('Feedback submit error:', err);
+        return res.status(500).send('Error submitting feedback');
+    }
+});
+
 startServer();
 
 export default app;
