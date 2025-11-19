@@ -52,6 +52,15 @@ router.get("/admin/user-management/update/:id", adminController.updateUserPage);
 router.post("/admin/user-management/update/:id", adminController.updateUserRole);
 router.post("/admin/user-management/delete/:id", adminController.deleteUser);
 
+router.get("/admin/financial-reports", adminController.financialReportsPage);
+router.post("/admin/financial-reports/approve/:id", adminController.approveFinancialReport);
+router.post("/admin/financial-reports/reject/:id", adminController.rejectFinancialReport);
+
+router.get("/admin/content-management", adminController.contentManagementPage);
+
+router.get("/admin/feedback", adminController.feedbackCenterPage);
+
+
 // Chairperson Routes
 router.get("/chairperson/dashboard", chairpersonController.dashboardPage);
 router.get("/chairperson/projects", chairpersonController.projectApprovalPage);
