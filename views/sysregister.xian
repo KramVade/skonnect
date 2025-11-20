@@ -1,12 +1,12 @@
 {{> myhead}}
-<body class="bg-gray-100 font-sans min-h-screen flex items-center justify-center p-4">
-  <div class="w-full max-w-md fade-in">
-    <form action="/sysregister" method="POST" class="bg-white p-8 rounded-xl shadow-lg">
+
+<!-- Main Content Area -->
+<main class="flex-1 flex items-center justify-center p-8">
+  <div class="w-full max-w-md">
+    <div class="bg-white p-8 rounded-lg shadow-md">
       <div class="text-center mb-8">
-        <h1 class="text-3xl font-bold tracking-wide text-gray-800">
-          <i class="fas fa-user-plus mr-2 text-gray-600"></i>Create Account
-        </h1>
-        <p class="text-gray-500 mt-2">Join the SK Document Portal</p>
+        <h1 class="text-3xl font-bold text-gray-800">Create Account</h1>
+        <p class="text-gray-600 mt-2">Join the SK Documentation System</p>
       </div>
 
       {{#if error}}
@@ -15,33 +15,42 @@
         </div>
       {{/if}}
 
-      <div class="mb-4">
-        <label for="name" class="block text-gray-700 font-medium mb-2">Full Name</label>
-        <input type="text" id="name" name="name" placeholder="Juan Dela Cruz" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" required />
-      </div>
-      <div class="mb-4">
-        <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" required />
-      </div>
-      <div class="mb-6">
-        <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
-        <input type="password" id="password" name="password" placeholder="••••••••" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition" required />
-      </div>
+      <form action="/sysregister" method="POST" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Juan Dela Cruz" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" required />
+        </div>
 
-      <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        <i class="fas fa-check-circle mr-2"></i>Register
-      </button>
+        <div>
+          <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" required />
+        </div>
 
-      <div class="text-center mt-6">
-        <p class="text-gray-600">
-          Already have an account? <a href="/login" class="text-indigo-600 hover:underline font-medium">Login here</a>
+        <div>
+          <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" 
+                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent" required />
+        </div>
+
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+          Register
+        </button>
+      </form>
+
+      <div class="text-center mt-6 space-y-3">
+        <p class="text-gray-600 text-sm">
+          Already have an account? <a href="/login" class="text-blue-600 hover:underline font-medium">Login here</a>
         </p>
-        <p class="mt-4">
+        <p>
           <a href="/" class="text-sm text-gray-500 hover:text-gray-700 hover:underline">← Go Back to Home</a>
         </p>
       </div>
-      <p class="text-center text-gray-500 text-xs mt-8">&copy; 2025 Sangguniang Kabataan. All rights reserved.</p>
-    </form>
+    </div>
+
+    <p class="text-center text-gray-500 text-xs mt-6">&copy; 2025 Sangguniang Kabataan. All rights reserved.</p>
   </div>
+</main>
+
 {{> myfoot}}
-</body>

@@ -70,6 +70,9 @@ router.post("/financial-report/:id/reject", chairpersonController.rejectFinancia
 router.get("/chairperson/announcements", announcementController.announcementApprovalPage);
 router.post("/announcement/:id/approve", announcementController.approveAnnouncement);
 router.post("/announcement/:id/reject", announcementController.rejectAnnouncement);
+router.get("/chairperson/expenditure-review", chairpersonController.expenditureReviewPage);
+router.post("/expenditure/:id/approve", chairpersonController.approveExpenditure);
+router.post("/expenditure/:id/reject", chairpersonController.rejectExpenditure);
 
 // Secretary Routes
 router.get("/secretary/dashboard", secretaryController.dashboardPage);
@@ -81,6 +84,10 @@ router.get("/treasurer/financial-reports", treasurerController.financialReportsP
 router.get("/treasurer/financial-reports/view/:id", treasurerController.viewFinancialReportPage);
 router.get("/treasurer/financial-reports/create", treasurerController.createFinancialReportPage);
 router.post("/treasurer/financial-reports/create", treasurerController.createFinancialReport);
+router.get("/treasurer/expenditure-tracking", treasurerController.expenditureTrackingPage);
+router.get("/treasurer/expenditure-tracking/add", treasurerController.addExpenditurePage);
+router.post("/treasurer/expenditure-tracking/add", treasurerController.addExpenditure);
+router.post("/treasurer/expenditure-tracking/delete/:id", treasurerController.deleteExpenditure);
 
 // Councilor Routes
 router.get("/councilor/dashboard", councilorController.dashboardPage);

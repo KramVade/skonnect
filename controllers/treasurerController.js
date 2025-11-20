@@ -8,6 +8,8 @@
 */
 import { FinancialReport } from "../models/financialReportModel.js";
 import { Project } from "../models/projectModel.js";
+import { Expenditure } from "../models/expenditureModel.js";
+import { SysUser } from "../models/sysUserModel.js";
 import multer from "multer";
 import fs from "fs";
 import path from "path";
@@ -204,5 +206,127 @@ export const publicFinancialReportsPage = async (req, res) => {
   } catch (error) {
     console.error("Error fetching public financial reports:", error);
     res.status(500).send("Failed to load financial reports.");
+  }
+};
+
+
+/**
+ * Renders the expenditure tracking page with all expenditures.
+ */
+export const expenditureTrackingPage = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'treasurer') {
+    return res.redirect("/login");
+  }
+
+  try {
+    const expenditureInstances = await Expenditure.findAll({
+      include: [
+        { model: Project, attributes: ['project_title', 'project_id'] },
+        { model: SysUser, as: 'recorder', attributes: ['name'] }
+      ],
+      order: [['date_incurred', 'DESC']],
+    });
+
+    const expenditures = expenditureInstances.map(e => e.get({ plain: true }));
+
+    // Calculate summary statistics
+    const totalExpenditure = expenditures.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0);
+    const expendituresByCategory = {};
+    expenditures.forEach(exp => {
+      const cat = exp.category || 'Uncategorized';
+      expendituresByCategory[cat] = (expendituresByCategory[cat] || 0) + parseFloat(exp.amount || 0);
+    });
+
+    // Convert category object to array for Handlebars
+    const categoryBreakdown = Object.keys(expendituresByCategory).map(key => ({
+      category: key,
+      amount: expendituresByCategory[key]
+    }));
+
+    res.render("expenditure-tracking", {
+      title: "Expenditure Tracking",
+      expenditures,
+      totalExpenditure: totalExpenditure.toFixed(2),
+      categoryBreakdown,
+      categoryCount: categoryBreakdown.length,
+      active: 'expenditure'
+    });
+  } catch (error) {
+    console.error("Error fetching expenditures:", error);
+    res.status(500).send("Failed to load expenditure tracking page.");
+  }
+};
+
+/**
+ * Renders the page for adding a new expenditure.
+ */
+export const addExpenditurePage = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'treasurer') {
+    return res.redirect("/login");
+  }
+
+  try {
+    // Fetch approved or in-progress projects
+    const projects = await Project.findAll({
+      where: { status: ['Approved', 'In Progress', 'Completed'] },
+      order: [['project_title', 'ASC']],
+      raw: true
+    });
+
+    res.render("add-expenditure", {
+      title: "Add Expenditure",
+      projects,
+      active: 'expenditure'
+    });
+  } catch (error) {
+    console.error("Error loading add expenditure page:", error);
+    res.status(500).send("Failed to load page.");
+  }
+};
+
+/**
+ * Handles the submission of a new expenditure.
+ */
+export const addExpenditure = [upload.single('receipt'), async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'treasurer') {
+    return res.redirect("/login");
+  }
+
+  try {
+    const { project_id, description, category, amount, date_incurred, remarks } = req.body;
+    const receipt_path = req.file ? req.file.path.replace(/\\/g, "/").replace('public/', '') : null;
+
+    await Expenditure.create({
+      project_id,
+      description,
+      category,
+      amount,
+      date_incurred: date_incurred || new Date(),
+      receipt_path,
+      recorded_by: req.session.userId,
+      remarks
+    });
+
+    res.redirect('/treasurer/expenditure-tracking');
+  } catch (error) {
+    console.error("Error adding expenditure:", error);
+    res.status(500).send("Failed to add expenditure.");
+  }
+}];
+
+/**
+ * Deletes an expenditure entry.
+ */
+export const deleteExpenditure = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'treasurer') {
+    return res.redirect("/login");
+  }
+
+  try {
+    await Expenditure.destroy({ where: { expenditure_id: req.params.id } });
+    res.redirect('/treasurer/expenditure-tracking');
+  } catch (error) {
+    console.error("Error deleting expenditure:", error);
+    res.status(500).send("Failed to delete expenditure.");
   }
 };

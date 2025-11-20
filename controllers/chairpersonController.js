@@ -10,6 +10,7 @@ import { Project } from "../models/projectModel.js";
 import { SysUser } from "../models/sysUserModel.js";
 import { FinancialReport } from "../models/financialReportModel.js";
 import { Feedback } from "../models/feedbackModel.js";
+import { Expenditure } from "../models/expenditureModel.js";
 
 export const dashboardPage = async (req, res) => {
   if (!req.session.userId || req.session.position !== 'chairperson') return res.redirect("/login");
@@ -18,12 +19,14 @@ export const dashboardPage = async (req, res) => {
     const pendingProjects = await Project.count({ where: { status: 'Pending' } });
     const pendingFinancialReports = await FinancialReport.count({ where: { status: 'Pending' } });
     const feedbackToReview = await Feedback.count({ where: { status: 'New' } });
+    const pendingExpenditures = await Expenditure.count({ where: { status: 'Pending' } });
 
     // This data remains static for now as there are no activity/notification models
     const dashboardData = {
       pendingProjects,
       pendingFinancialReports,
       feedbackToReview,
+      pendingExpenditures,
       budgetUsage: 45, // as a percentage
       recentActivities: [
         { officer: 'SK Secretary', action: 'uploaded minutes for the last meeting.', time: '1 hour ago' },
@@ -164,3 +167,105 @@ export const rejectFinancialReport = [isChairperson, async (req, res) => {
     res.status(500).send("Failed to reject report.");
   }
 }];
+
+/**
+ *
+ Renders the expenditure review page for the chairperson.
+ */
+export const expenditureReviewPage = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'chairperson') {
+    return res.redirect("/login");
+  }
+
+  try {
+    // Fetch pending expenditures
+    const pendingExpenditureInstances = await Expenditure.findAll({
+      where: { status: 'Pending' },
+      include: [
+        { model: Project, attributes: ['project_title', 'project_id'] },
+        { model: SysUser, as: 'recorder', attributes: ['name'] }
+      ],
+      order: [['date_incurred', 'DESC']],
+    });
+
+    // Fetch approved/rejected expenditures
+    const reviewedExpenditureInstances = await Expenditure.findAll({
+      where: { status: ['Approved', 'Rejected'] },
+      include: [
+        { model: Project, attributes: ['project_title', 'project_id'] },
+        { model: SysUser, as: 'recorder', attributes: ['name'] },
+        { model: SysUser, as: 'reviewer', attributes: ['name'] }
+      ],
+      order: [['date_reviewed', 'DESC']],
+    });
+
+    const pendingExpenditures = pendingExpenditureInstances.map(e => e.get({ plain: true }));
+    const reviewedExpenditures = reviewedExpenditureInstances.map(e => e.get({ plain: true }));
+
+    // Calculate totals
+    const pendingTotal = pendingExpenditures.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0);
+    const approvedTotal = reviewedExpenditures
+      .filter(e => e.status === 'Approved')
+      .reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0);
+
+    res.render("chair-expenditure-review", {
+      title: "Expenditure Review",
+      pendingExpenditures,
+      reviewedExpenditures,
+      pendingTotal: pendingTotal.toFixed(2),
+      approvedTotal: approvedTotal.toFixed(2),
+      active: 'expenditure'
+    });
+  } catch (error) {
+    console.error("Error fetching expenditures for review:", error);
+    res.status(500).send("Failed to load expenditure review page.");
+  }
+};
+
+/**
+ * Approves an expenditure. (Chairperson only)
+ */
+export const approveExpenditure = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'chairperson') {
+    return res.redirect("/login");
+  }
+
+  try {
+    await Expenditure.update(
+      {
+        status: 'Approved',
+        reviewed_by: req.session.userId,
+        date_reviewed: new Date(),
+      },
+      { where: { expenditure_id: req.params.id } }
+    );
+    res.redirect('/chairperson/expenditure-review');
+  } catch (error) {
+    console.error("Error approving expenditure:", error);
+    res.status(500).send("Failed to approve expenditure.");
+  }
+};
+
+/**
+ * Rejects an expenditure. (Chairperson only)
+ */
+export const rejectExpenditure = async (req, res) => {
+  if (!req.session.userId || req.session.position !== 'chairperson') {
+    return res.redirect("/login");
+  }
+
+  try {
+    await Expenditure.update(
+      {
+        status: 'Rejected',
+        reviewed_by: req.session.userId,
+        date_reviewed: new Date(),
+      },
+      { where: { expenditure_id: req.params.id } }
+    );
+    res.redirect('/chairperson/expenditure-review');
+  } catch (error) {
+    console.error("Error rejecting expenditure:", error);
+    res.status(500).send("Failed to reject expenditure.");
+  }
+};
