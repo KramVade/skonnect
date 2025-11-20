@@ -105,9 +105,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-6 text-right">
-                    <a href="/projects" class="text-blue-600 hover:underline">&larr; Back to Project List</a>
-                </div>
             </div>
         </main>
     </div>

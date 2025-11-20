@@ -22,7 +22,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#if pendingProjects}}
+                            {{#if pendingProjects.length}}
                                 {{#each pendingProjects}}
                                     <tr class="border-b hover:bg-gray-50">
                                         <td class="p-3">
@@ -87,7 +87,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#if approvedProjects}}
+                            {{#if approvedProjects.length}}
                                 {{#each approvedProjects}}
                                     <tr class="border-b hover:bg-gray-50">
                                         <td class="p-3 font-medium text-gray-800">{{this.project_title}}</td>

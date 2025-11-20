@@ -65,21 +65,95 @@ export const submitFeedback = async (req, res) => {
  * Renders the page for viewing all feedback. (SK Officials only)
  */
 export const viewFeedbackPage = [isSkOfficial, async (req, res) => {
-  const feedbackItems = await Feedback.findAll({
-    include: [{ model: SysUser, as: 'submitter', attributes: ['name', 'position'] }],
-    order: [['createdAt', 'DESC']]
-  });
-  res.render('reviewfeedback', { title: 'Review Feedback', feedbackItems, layout: false });
+  try {
+    const feedbackInstances = await Feedback.findAll({
+      include: [{ model: SysUser, as: 'submitter', attributes: ['name', 'position'] }],
+      order: [['createdAt', 'DESC']]
+    });
+
+    const feedbackItems = feedbackInstances.map(f => f.get({ plain: true }));
+
+    // Calculate status counts
+    const newCount = feedbackItems.filter(f => f.status === 'New').length;
+    const inProgressCount = feedbackItems.filter(f => f.status === 'In Progress').length;
+    const resolvedCount = feedbackItems.filter(f => f.status === 'Resolved').length;
+
+    res.render('reviewfeedback', { 
+      title: 'Review Feedback', 
+      feedbackItems,
+      newCount,
+      inProgressCount,
+      resolvedCount,
+      active: 'feedback',
+      layout: false 
+    });
+  } catch (error) {
+    console.error("Error fetching feedback:", error);
+    res.status(500).send("Failed to load feedback page.");
+  }
 }];
 
 /**
  * Renders the page for viewing all feedback for the Secretary.
  */
 export const viewSecretaryFeedbackPage = [isSkOfficial, async (req, res) => {
-  const feedbackItems = await Feedback.findAll({
-    include: [{ model: SysUser, as: 'submitter', attributes: ['name', 'position'] }],
-    order: [['createdAt', 'DESC']]
-  });
-  // Renders the specific view for the secretary
-  res.render('secreviewfeedback', { title: 'Review Feedback', feedbackItems, user: req.session, layout: false });
+  try {
+    const feedbackInstances = await Feedback.findAll({
+      include: [{ model: SysUser, as: 'submitter', attributes: ['name', 'position'] }],
+      order: [['createdAt', 'DESC']]
+    });
+
+    const feedbackItems = feedbackInstances.map(f => f.get({ plain: true }));
+
+    // Calculate status counts
+    const newCount = feedbackItems.filter(f => f.status === 'New').length;
+    const inProgressCount = feedbackItems.filter(f => f.status === 'In Progress').length;
+    const resolvedCount = feedbackItems.filter(f => f.status === 'Resolved').length;
+
+    res.render('secreviewfeedback', { 
+      title: 'Review Feedback', 
+      feedbackItems,
+      newCount,
+      inProgressCount,
+      resolvedCount,
+      user: req.session,
+      active: 'feedback',
+      layout: false 
+    });
+  } catch (error) {
+    console.error("Error fetching feedback for secretary:", error);
+    res.status(500).send("Failed to load feedback page.");
+  }
+}];
+
+/**
+ * Marks feedback as "In Progress". (SK Officials only)
+ */
+export const markFeedbackInProgress = [isSkOfficial, async (req, res) => {
+  try {
+    await Feedback.update(
+      { status: 'In Progress' },
+      { where: { feedback_id: req.params.id } }
+    );
+    res.redirect('/feedback/view');
+  } catch (error) {
+    console.error("Error updating feedback status:", error);
+    res.status(500).send("Failed to update feedback status.");
+  }
+}];
+
+/**
+ * Marks feedback as "Resolved". (SK Officials only)
+ */
+export const resolveFeedback = [isSkOfficial, async (req, res) => {
+  try {
+    await Feedback.update(
+      { status: 'Resolved' },
+      { where: { feedback_id: req.params.id } }
+    );
+    res.redirect('/feedback/view');
+  } catch (error) {
+    console.error("Error resolving feedback:", error);
+    res.status(500).send("Failed to resolve feedback.");
+  }
 }];

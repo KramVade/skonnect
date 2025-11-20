@@ -68,6 +68,14 @@ export const projectApprovalPage = async (req, res) => {
     const pendingProjects = pendingProjectInstances.map(p => p.get({ plain: true }));
     const approvedProjects = approvedProjectInstances.map(p => p.get({ plain: true }));
 
+    // Debug logging
+    console.log('=== PROJECT APPROVAL PAGE DEBUG ===');
+    console.log('Pending Projects Count:', pendingProjects.length);
+    console.log('Approved Projects Count:', approvedProjects.length);
+    console.log('Pending Projects:', JSON.stringify(pendingProjects, null, 2));
+    console.log('Approved Projects:', JSON.stringify(approvedProjects, null, 2));
+    console.log('===================================');
+
     res.render("project-approval", { 
       title: "Project Approval", 
       pendingProjects, 

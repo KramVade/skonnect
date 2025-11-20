@@ -120,6 +120,8 @@ router.get("/feedback", (req, res) => res.redirect('/feedback/create'));
 router.get("/feedback/view", feedbackController.viewFeedbackPage); // Keep a protected route for officials
 router.get("/feedback/create", feedbackController.createFeedbackPage);
 router.post("/feedback/create", feedbackController.submitFeedback);
+router.post("/feedback/:id/mark-progress", feedbackController.markFeedbackInProgress);
+router.post("/feedback/:id/resolve", feedbackController.resolveFeedback);
 
 router.get("/login", loginPage);
 router.post("/login", loginUser);

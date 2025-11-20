@@ -110,6 +110,10 @@ hbs.registerHelper('formatCurrency', function (number) {
     return parseFloat(number).toFixed(2);
 });
 
+hbs.registerHelper('json', function (context) {
+    return JSON.stringify(context);
+});
+
 const startServer = async () => {
   await registerPartials();
   app.use("/", router);

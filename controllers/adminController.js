@@ -23,9 +23,34 @@ const isAdmin = (req, res, next) => {
   next();
 };
 
-export const dashboardPage = (req, res) => {
+export const dashboardPage = async (req, res) => {
     if (!req.session.userId || req.session.position !== 'admin') return res.redirect("/login");
-    res.render("admindashboard", { title: "Admin Dashboard", active: 'dashboard' });
+    
+    try {
+        // Fetch widget data
+        const totalProjects = await Project.count();
+        const pendingApprovals = await Project.count({ where: { status: 'Pending' } });
+        const feedbackCount = await Feedback.count();
+        
+        // Fetch recent activities (optional - you can customize this)
+        const recentActivities = [];
+        
+        // Fetch notifications (optional - you can customize this)
+        const notifications = [];
+        
+        res.render("admindashboard", { 
+            title: "Admin Dashboard", 
+            active: 'dashboard',
+            totalProjects,
+            pendingApprovals,
+            feedbackCount,
+            recentActivities,
+            notifications
+        });
+    } catch (error) {
+        console.error("Error loading admin dashboard:", error);
+        res.status(500).send("Failed to load dashboard.");
+    }
 };
 
 export const userManagementPage = async (req, res) => {
