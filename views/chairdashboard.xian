@@ -1,34 +1,32 @@
 {{> myhead}}
 <body class="bg-gray-100">
   <div class="flex min-h-screen">
-    {{> chairsidebar }}
+    {{> chairsidebar active='dashboard'}}
     <main class="flex-1 p-8">
       <h1 class="text-3xl font-bold mb-6">Chairperson Dashboard</h1>
-
+      
       <!-- Summary Widgets -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div class="bg-white p-6 rounded-lg shadow-md">
           <h3 class="text-lg font-semibold text-gray-700">Pending Projects</h3>
           <p class="text-3xl font-bold mt-2">{{ pendingProjects }}</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-lg font-semibold text-gray-700">Feedback to Review</h3>
-          <p class="text-3xl font-bold mt-2">{{ feedbackToReview }}</p>
+          <h3 class="text-lg font-semibold text-gray-700">Pending Financial Reports</h3>
+          <p class="text-3xl font-bold mt-2">{{ pendingFinancialReports }}</p>
         </div>
         <div class="bg-white p-6 rounded-lg shadow-md">
-          <h3 class="text-lg font-semibold text-gray-700">Budget Usage</h3>
-          <p class="text-3xl font-bold mt-2">{{ budgetUsage }}%</p>
+          <h3 class="text-lg font-semibold text-gray-700">Pending Expenditures</h3>
+          <p class="text-3xl font-bold mt-2 text-yellow-600">{{ pendingExpenditures }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+          <h3 class="text-lg font-semibold text-gray-700">Feedback to Review</h3>
+          <p class="text-3xl font-bold mt-2">{{ feedbackToReview }}</p>
         </div>
       </div>
 
       <!-- Quick Links -->
       <div class="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">Quick Actions</h3>
-        <div class="flex space-x-4">
-          <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">Review Pending Projects</a>
-          <a href="#" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Create Announcement</a>
-          <a href="#" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition-colors">Generate Report</a>
-        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">

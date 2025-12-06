@@ -1,35 +1,61 @@
 <!-- Sidebar for SK Chairperson -->
-<aside class="bg-gray-800 text-white w-64 min-h-screen flex-shrink-0 hidden md:block">
+<aside class="bg-gray-800 text-white w-64 min-h-screen flex flex-col justify-between flex-shrink-0 hidden md:block">
   <div class="p-6 font-bold text-xl border-b border-gray-700">SKONNECT Chairperson</div>
-  <nav class="flex flex-col p-6 space-y-2 text-sm">
-    <a href="/chairperson/dashboard" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">🏠 Dashboard</a>
-    
-    <div>
-      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Management</h3>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
-      <div class="ml-4 space-y-1 mt-1">
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🗂 All Projects</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📝 Pending Approvals</a>
-        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">✅ Approved Projects</a>
+  <nav class="flex-grow p-6 text-sm">
+    <div class="space-y-4">
+      <a href="/chairperson/dashboard" class="flex items-center {{#if (eq active 'dashboard')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded px-3 py-2 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        Dashboard
+      </a>
+      
+      <div>
+        <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Management</h3>
+        <div class="space-y-1 mt-1">
+          <a href="/chairperson/projects" class="flex items-center {{#if (eq active 'projects')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Project Approvals
+          </a>
+          <a href="/chairperson/announcements" class="flex items-center {{#if (eq active 'announcements')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+            </svg>
+            Announcement Approvals
+          </a>
+          <a href="/chairperson/financial-reports" class="flex items-center {{#if (eq active 'reports')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Financial Oversight
+          </a>
+          <a href="/chairperson/expenditure-review" class="flex items-center {{#if (eq active 'expenditure')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+            Expenditure Review
+          </a>
+        </div>
       </div>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">🧾 Meeting Records</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💰 Financial Reports</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📰 Announcements & Events</a>
+      <div>
+        <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Community</h3>
+        <a href="/feedback/view" class="flex items-center {{#if (eq active 'feedback')}}bg-gray-900{{else}}hover:bg-gray-700{{/if}} rounded pl-6 pr-3 py-2 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+          Feedback & Concerns
+        </a>
+      </div>
     </div>
-
-    <div>
-      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Community</h3>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Suggestions</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">👥 SK Members Directory</a>
-    </div>
-
-    <div>
-      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">System</h3>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📊 Reports & Transparency</a>
-      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">⚙️ Settings</a>
-    </div>
-
-    <hr class="border-gray-700 my-4">
-    <a href="/logout" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Logout</a>
   </nav>
+  <div class="p-6 border-t border-gray-700">
+    <a href="/logout" class="flex items-center hover:bg-gray-700 rounded px-3 py-2 transition-colors text-sm">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      </svg>
+      Logout
+    </a>
+  </div>
 </aside>

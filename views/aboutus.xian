@@ -1,0 +1,51 @@
+{{> myhead}}
+<body class="bg-gray-100">
+  <div class="flex min-h-screen">
+    {{> publicsidebar}}
+
+    <main class="flex-1 p-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl font-bold text-gray-800">About the Sangguniang Kabataan</h1>
+          <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">
+            We are the dedicated youth leaders of our community, committed to fostering development, engagement, and empowerment among the youth through meaningful projects and transparent governance.
+          </p>
+        </div>
+
+        <!-- Mission and Vision -->
+        <div class="grid md:grid-cols-2 gap-10 mb-16">
+          <div class="bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
+            <p class="text-gray-600">
+              To empower the youth by providing opportunities for growth, leadership, and active participation in community-building, while upholding the values of integrity, service, and excellence.
+            </p>
+          </div>
+          <div class="bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Our Vision</h2>
+            <p class="text-gray-600">
+              A vibrant and progressive community where the youth are proactive partners in local governance and catalysts for positive social change.
+            </p>
+          </div>
+        </div>
+
+        <!-- Meet the Team -->
+        <div>
+          <h2 class="text-3xl font-bold text-center text-gray-800 mb-10">Meet the Officials</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {{#each officials}}
+            <div class="bg-white rounded-lg shadow-md text-center p-6 transition-transform transform hover:scale-105">
+              <img 
+                src="{{this.imageUrl}}" 
+                alt="Photo of {{this.name}}" 
+                class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-blue-500 object-cover">
+              <h3 class="text-xl font-semibold text-gray-900">{{this.name}}</h3>
+              <p class="text-blue-600 font-medium">{{this.position}}</p>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+{{> myfoot}}

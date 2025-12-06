@@ -11,6 +11,7 @@ export const dashboardPage = (req, res) => {
   // Static data for the secretary dashboard, to be replaced with database queries later.
   const dashboardData = {
     meetingsRecorded: 12,
+    proposeProjectLink: "/project/create", // Link to create a project
     projectsUploaded: 5,
     pendingReview: 4,
     recentActivities: [

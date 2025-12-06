@@ -15,13 +15,22 @@
           <div class="bg-white p-6 rounded-lg shadow-md mb-8">
             <h3 class="text-xl font-semibold text-gray-800 mb-4">📢 Latest Announcements</h3>
             <ul class="space-y-4">
-              {{#each latestAnnouncements}}
-              <li class="border-b pb-4 last:border-b-0">
-                <h4 class="font-semibold text-gray-900">{{this.title}}</h4>
-                <p class="text-sm text-gray-600 mt-1">{{this.content}}</p>
-                <p class="text-xs text-gray-400 mt-2">{{this.date}}</p>
+              {{#if latestAnnouncements.length}}
+                {{#each latestAnnouncements}}
+                <li class="border-b pb-4 last:border-b-0">
+                  {{#if this.image}}
+                  <img src="/{{this.image}}" alt="{{this.title}}" class="w-full h-48 object-cover rounded-lg mb-4">
+                  {{/if}}
+                  <h4 class="font-semibold text-gray-900 text-lg">{{this.title}}</h4>
+                  <p class="text-sm text-gray-600 mt-1">{{this.content}}</p>
+                  <p class="text-xs text-gray-400 mt-2">Published on {{formatDate this.publish_date}} by {{this.author.name}}</p>
+                </li>
+                {{/each}}
+              {{else}}
+              <li class="text-center text-gray-500 py-4">
+                No new announcements at this time.
               </li>
-              {{/each}}
+              {{/if}}
             </ul>
           </div>
 
@@ -75,6 +84,7 @@
               {{/each}}
             </ul>
           </div>
+
         </div>
       </div>
     </main>

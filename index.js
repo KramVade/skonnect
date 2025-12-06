@@ -23,7 +23,9 @@
     SOFTWARE.
     */
 
+// Load environment variables from .env file
 import 'dotenv/config';
+    
 import express from "express";
 import path from "path";
 import session from "express-session";
@@ -32,6 +34,7 @@ import fs from 'fs';
 import hbs from "hbs";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -70,38 +73,81 @@ app.engine("xian", async (filePath, options, callback) => {
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "xian");
-const partialsDir = path.join(__dirname, "views/partials");
-fs.readdir(partialsDir, (err, files) => {
-  if (err) {
-    console.error("❌ Could not read partials directory:", err);
-    return;
-  }
 
-   files
-    .filter(file => file.endsWith('.xian'))
-    .forEach(file => {
-      const partialName = file.replace('.xian', ''); 
-      const fullPath = path.join(partialsDir, file);
-
-      fs.readFile(fullPath, 'utf8', (err, content) => {
-        if (err) {
-          console.error(`❌ Failed to read partial: ${file}`, err);
-          return;
+const registerPartials = async () => {
+  const partialsDir = path.join(__dirname, "views/partials");
+  try {
+    const files = await fs.promises.readdir(partialsDir);
+    for (const file of files) {
+      if (file.endsWith('.xian')) {
+        const partialName = file.replace('.xian', '');
+        const fullPath = path.join(partialsDir, file);
+        try {
+          const content = await fs.promises.readFile(fullPath, 'utf8');
+          hbs.registerPartial(partialName, content);
+        } catch (readErr) {
+          console.error(`❌ Failed to read partial: ${file}`, readErr);
         }
-        hbs.registerPartial(partialName, content);
-        
-      });
-    });
-});
+      }
+    }
+  } catch (dirErr) {
+    console.error("❌ Could not read partials directory:", dirErr);
+  }
+};
+
 
 hbs.registerHelper('eq', function (a, b) {
   return a === b;
 });
 
-app.use("/", router);
+hbs.registerHelper('or', function (a, b) {
+  return a || b;
+});
+
+hbs.registerHelper('formatDate', function (date) {
+  if (!date) return '';
+  return new Date(date).toLocaleDateString();
+});
+
+hbs.registerHelper('formatCurrency', function (number) {
+    if (number == null) return '0.00';
+    return parseFloat(number).toFixed(2);
+});
+
+hbs.registerHelper('json', function (context) {
+    return JSON.stringify(context);
+});
+
+const startServer = async () => {
+  await registerPartials();
+  app.use("/", router);
+
+  if (!process.env.ELECTRON) {
+    app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
+  }
+};
+
+// ensure body parsing is enabled (add if not present)
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Place this BEFORE any auth middleware or before mounting routes that require auth
+app.post('/feedback/submit', async (req, res) => {
+    try {
+        const { feedback_type, message, name } = req.body;
+        const submitterName = (name && name.trim()) ? name.trim() : 'Anonymous';
+
+        // persist/send/log as needed
+        // const Feedback = require('./models/Feedback');
+        // await new Feedback({ type: feedback_type, message, name: submitterName, createdAt: new Date() }).save();
+
+        return res.redirect('/feedback?sent=1');
+    } catch (err) {
+        console.error('Feedback submit error:', err);
+        return res.status(500).send('Error submitting feedback');
+    }
+});
+
+startServer();
 
 export default app;
-
-if (!process.env.ELECTRON) {
-  app.listen(PORT, () => console.log(`🔥 XianFire running at http://localhost:${PORT}`));
-}
