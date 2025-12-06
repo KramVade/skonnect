@@ -1,0 +1,44 @@
+<!-- Sidebar for SK Treasurer -->
+<aside class="bg-gray-800 text-white w-64 min-h-screen flex-shrink-0 hidden md:block">
+  <div class="p-6 font-bold text-xl border-b border-gray-700">SKONNECT Treasurer</div>
+  <nav class="flex flex-col p-6 space-y-2 text-sm">
+    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">🏠 Dashboard</a>
+    
+    <div>
+      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Financial Management</h3>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📦 Project Financials</a>
+      <div class="ml-4 space-y-1 mt-1">
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">💼 Upload Financial Report</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📊 All Financial Reports</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">⏳ Pending Approval</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">✅ Approved Financials</a>
+      </div>
+
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">💸 Budget Management</a>
+      <div class="ml-4 space-y-1 mt-1">
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🧾 Create Budget Proposal</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📂 Budget Allocation Records</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📅 Annual Budget Summary</a>
+      </div>
+
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">📈 Expenditure Tracking</a>
+      <div class="ml-4 space-y-1 mt-1">
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🪙 Add Expense Record</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🧮 Expense Ledger</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🔍 Audit Log</a>
+      </div>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">🧾 Financial Statements</a>
+    </div>
+
+    <div>
+      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Tools & Reports</h3>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">🗂 Project Records (View Only)</a>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Queries</a>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📊 Reports & Analytics</a>
+    </div>
+
+    <hr class="border-gray-700 my-4">
+    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">⚙️ Profile Settings</a>
+    <a href="/logout" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Logout</a>
+  </nav>
+</aside>

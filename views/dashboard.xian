@@ -1,0 +1,28 @@
+{{> myhead}}
+<body class="bg-gray-50">
+  <div class="flex min-h-screen">
+    {{> sidebar }}
+    <div class="flex-1 flex flex-col items-center justify-center">
+      <h2 class="text-2xl font-bold text-center mt-10">Dashboard</h2>
+      <p class="mt-4 text-center">Welcome to your dashboard!</p>
+      <main class="w-full max-w-xl px-6 py-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Pages</h1>
+        <ul class="list-decimal list-inside space-y-2">
+          <li><a href="page1.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 1</a></li>
+          <li><a href="page2.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 2</a></li>
+          <li><a href="page3.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 3</a></li>
+          <li><a href="page4.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 4</a></li>
+          <li><a href="page5.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 5</a></li>
+          <li><a href="page6.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 6</a></li>
+          <li><a href="page7.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 7</a></li>
+          <li><a href="page8.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 8</a></li>
+          <li><a href="page9.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 9</a></li>
+          <li><a href="page10.xian" class="text-blue-600 hover:text-blue-800 transition-colors">Page 10</a></li>
+        </ul>
+        <div class="mt-6 text-center">
+          <a href="/logout" class="text-red-600 font-medium">Logout</a>
+        </div>
+      </main>
+    </div>
+  </div>
+{{> myfoot}}

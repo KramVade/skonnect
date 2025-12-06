@@ -1,0 +1,36 @@
+{{> myhead}}
+<body class="bg-gray-100">
+  <div class="min-h-screen flex items-center justify-center fade-in" style="background: linear-gradient(to right, #4a5568, #2d3748);">
+    <div class="w-full max-w-2xl mx-auto p-8 text-center bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20">
+      
+      <!-- Header -->
+      <div class="mb-6">
+        <img src="https://via.placeholder.com/100" alt="SK Logo" class="mx-auto mb-4 rounded-full border-2 border-white/50">
+        <h1 class="text-4xl font-bold text-white tracking-wider">SKONNECT</h1>
+        <p class="text-lg text-gray-300 mt-2">Sangguniang Kabataan Documentation and Transparency System</p>
+        <p class="text-md text-gray-400">Barangay Sta. Maria, Mansalay, Oriental Mindoro</p>
+      </div>
+
+      <!-- System Description -->
+      <div class="mb-8">
+        <p class="text-gray-200 leading-relaxed">
+          SKONNECT is an online documentation and transparency system developed for the Sangguniang Kabataan. It serves as a centralized platform where SK officials can record meeting minutes, upload project reports, and manage official documents efficiently. The system also promotes accessibility and accountability by allowing public users to view approved projects and submit feedback.
+        </p>
+        <p class="text-gray-300 italic mt-4">
+          “Connecting youth governance through digital transparency.”
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+        <a href="/login" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+          Official Login
+        </a>
+        <a href="/portal" class="w-full sm:w-auto bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300">
+          View Public Portal
+        </a>
+      </div>
+
+    </div>
+  </div>
+{{> myfoot}}

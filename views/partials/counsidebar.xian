@@ -1,0 +1,37 @@
+<!-- Sidebar for SK Councilor -->
+<aside class="bg-gray-800 text-white w-64 min-h-screen flex-shrink-0 hidden md:block">
+  <div class="p-6 font-bold text-xl border-b border-gray-700">SKONNECT Councilor</div>
+  <nav class="flex flex-col p-6 space-y-2 text-sm">
+    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">🏠 Dashboard</a>
+    
+    <div>
+      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Contributions</h3>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📁 Project Management</a>
+      <div class="ml-4 space-y-1 mt-1">
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🧾 Create Project Proposal</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📋 My Projects</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">⏳ Pending Approval</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">✅ Approved Projects</a>
+      </div>
+
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">📅 Events and Announcements</a>
+      <div class="ml-4 space-y-1 mt-1">
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">🗞 Create Announcement</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📆 Event Calendar</a>
+        <a href="#" class="block text-xs hover:bg-gray-700 rounded px-3 py-1 transition-colors">📢 Published Posts</a>
+      </div>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 mt-2 transition-colors">🧾 Activity Reports</a>
+    </div>
+
+    <div>
+      <h3 class="px-3 py-2 font-semibold text-gray-400 text-xs uppercase">Engagement & Tools</h3>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">💬 Feedback & Youth Engagement</a>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">👥 Committee Directory</a>
+      <a href="#" class="block hover:bg-gray-700 rounded px-3 py-2 transition-colors">📊 Reports & Performance Tracker</a>
+    </div>
+
+    <hr class="border-gray-700 my-4">
+    <a href="#" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">⚙️ Profile Settings</a>
+    <a href="/logout" class="hover:bg-gray-700 rounded px-3 py-2 transition-colors">Logout</a>
+  </nav>
+</aside>
