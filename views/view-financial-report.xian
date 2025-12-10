@@ -38,7 +38,7 @@
 
                         <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Attachment</h3>
                         {{#if report.attachments}}
-                            <a href="/{{report.attachments}}" target="_blank" class="text-blue-600 hover:underline break-all">{{report.attachments}}</a>
+                            <a href="/file/{{getFileType report.attachments}}/{{getFilename report.attachments}}" target="_blank" class="text-blue-600 hover:underline break-all">{{getFilename report.attachments}}</a>
                         {{else}}
                             <p class="text-gray-500">No attachment provided.</p>
                         {{/if}}

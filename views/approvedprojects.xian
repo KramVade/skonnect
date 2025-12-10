@@ -23,7 +23,7 @@
 
                   {{#if this.attachment_path}}
                     <div class="mt-4 pt-4 border-t border-gray-200">
-                      <a href="/{{this.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:text-blue-800">View Documentation &rarr;</a>
+                      <a href="/file/{{getFileType this.attachment_path}}/{{getFilename this.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-sm font-medium text-blue-600 hover:text-blue-800">View Documentation &rarr;</a>
                     </div>
                   {{/if}}
                 </div>

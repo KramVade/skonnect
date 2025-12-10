@@ -32,7 +32,7 @@
                                         <td class="p-3 text-gray-600">₱{{formatCurrency this.amount_spent}}</td>
                                         <td class="p-3 text-center">
                                             {{#if this.attachments}}
-                                                <a href="/{{this.attachments}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View</a>
+                                                <a href="/file/{{getFileType this.attachments}}/{{getFilename this.attachments}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View</a>
                                             {{else}}
                                                 <span class="text-gray-400">N/A</span>
                                             {{/if}}

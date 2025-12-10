@@ -11,6 +11,7 @@ A comprehensive web-based management system for Sangguniang Kabataan (SK) barang
 - 💬 **Feedback System** - Collect and manage community feedback
 - 📊 **Dashboard** - Role-based dashboards with real-time data
 - 🔐 **Authentication** - Secure login with bcrypt password hashing
+- 📎 **File Management** - Upload and view attachments inline in browser (PDFs, images, documents)
 
 ## Tech Stack
 
@@ -186,6 +187,29 @@ npm run migrate
 3. Run migrations: `npm run migrate`
 4. Import/seed data as needed
 5. Start with: `npm run xian-start`
+
+## File Management
+
+The system includes a robust file management system for handling attachments:
+
+### File Types Supported
+- **PDFs** - Display inline in browser
+- **Images** (JPG, PNG, GIF, SVG) - Display inline in browser  
+- **Documents** (DOC, DOCX, XLS, XLSX, PPT, PPTX) - Force download
+- **Text files** - Display inline in browser
+
+### File Serving Routes
+- `/file/:type/:filename` - View files inline when possible
+- `/download/:type/:filename` - Force download any file
+
+### Upload Directories
+- `public/uploads/attachments/` - Project attachments
+- `public/uploads/financials/` - Financial report documents
+- `public/uploads/announcements/` - Announcement images
+- `public/uploads/receipts/` - Expenditure receipts
+
+### Usage in Views
+Files are automatically served with proper MIME types and Content-Disposition headers to ensure PDFs and images display in the browser instead of downloading.
 
 ## Security Notes
 

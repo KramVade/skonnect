@@ -30,6 +30,7 @@ import express from "express";
 import path from "path";
 import session from "express-session";
 import router from "./routes/index.js";
+import fileRoutes from "./routes/file-routes.js";
 import fs from 'fs';
 import hbs from "hbs";
 import { fileURLToPath } from "url";
@@ -118,8 +119,23 @@ hbs.registerHelper('json', function (context) {
     return JSON.stringify(context);
 });
 
+hbs.registerHelper('getFilename', function (filePath) {
+    if (!filePath) return '';
+    return filePath.split('/').pop();
+});
+
+hbs.registerHelper('getFileType', function (filePath) {
+    if (!filePath) return '';
+    const parts = filePath.split('/');
+    if (parts.length >= 2) {
+        return parts[1]; // e.g., 'attachments', 'financials', etc.
+    }
+    return 'attachments'; // default
+});
+
 const startServer = async () => {
   await registerPartials();
+  app.use("/", fileRoutes);
   app.use("/", router);
 
   if (!process.env.ELECTRON) {

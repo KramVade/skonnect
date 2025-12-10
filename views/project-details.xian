@@ -91,7 +91,10 @@
                             <div>
                                 <p class="text-sm font-medium text-gray-500">Attachment</p>
                                 <p class="text-md text-gray-800">
-                                    <a href="/{{project.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View Attached File</a>
+                                    <div class="flex space-x-4">
+                                        <a href="/file/{{getFileType project.attachment_path}}/{{getFilename project.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View File</a>
+                                        <a href="/download/{{getFileType project.attachment_path}}/{{getFilename project.attachment_path}}" class="text-green-600 hover:underline">Download File</a>
+                                    </div>
                                 </p>
                             </div>
                             {{/if}}

@@ -34,7 +34,7 @@
                                         <td class="p-3 text-gray-600">₱{{formatCurrency this.budget_estimate}}</td>
                                         <td class="p-3 text-center">
                                             {{#if this.attachment_path}}
-                                                <a href="/{{this.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View</a>
+                                                <a href="/file/{{getFileType this.attachment_path}}/{{getFilename this.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View</a>
                                             {{else}}
                                                 <span class="text-gray-400">N/A</span>
                                             {{/if}}
