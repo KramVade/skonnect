@@ -8,6 +8,7 @@
     "xian-start": "node index.js",
     "xian": "nodemon index.js",
     "migrate": "node migrate.js",
+    "migrate:prod": "node production-migrate.js",
     "import-data": "node import-data.js",
     "seed": "node seed-mock-data.js",
     "create:model": "node create.js model",

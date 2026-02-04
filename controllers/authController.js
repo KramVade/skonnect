@@ -27,9 +27,15 @@
 import bcrypt from "bcrypt";
 import { User, SysUser, sequelize } from "../models/index.js";
 
-// Temporarily disable sync to avoid schema conflicts
-// await sequelize.sync({ alter: true });
-console.log("⚠️  Database sync disabled - run migration script separately if needed");
+// Disable sync in production to avoid schema conflicts
+// Use migration scripts instead for production deployments
+if (process.env.NODE_ENV !== 'production') {
+  // Temporarily disable sync to avoid schema conflicts
+  // await sequelize.sync({ alter: true });
+  console.log("⚠️  Database sync disabled - run migration script separately if needed");
+} else {
+  console.log("🚀 Production mode - database sync disabled");
+}
 
 // --- Admin Seeder ---
 // This function checks for and creates a default admin user if one doesn't exist.
