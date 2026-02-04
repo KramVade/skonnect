@@ -25,22 +25,19 @@
     */
     
 import bcrypt from "bcrypt";
-import { User, SysUser, sequelize } from "../models/index.js";
+// Import sequelize separately to avoid model initialization
+import { sequelize } from "../models/db.js";
 
-// Disable sync in production to avoid schema conflicts
-// Use migration scripts instead for production deployments
-if (process.env.NODE_ENV !== 'production') {
-  // Temporarily disable sync to avoid schema conflicts
-  // await sequelize.sync({ alter: true });
-  console.log("⚠️  Database sync disabled - run migration script separately if needed");
-} else {
-  console.log("🚀 Production mode - database sync disabled");
-}
+// Completely disable any automatic sync
+console.log("🚀 Starting without database sync - models will be imported on demand");
 
 // --- Admin Seeder ---
 // This function checks for and creates a default admin user if one doesn't exist.
 const createAdminAccount = async () => {
   try {
+    // Import models only when needed
+    const { SysUser } = await import("../models/index.js");
+    
     const adminEmail = 'markdaveako@gmail.com'; // Use a secure, non-public email
     const adminPassword = 'adminpassword'; // IMPORTANT: Use a strong, unique password
 
@@ -79,6 +76,7 @@ export const waitForApprovalPage = (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+  const { SysUser } = await import("../models/index.js");
   const { email, password } = req.body;
   const user = await SysUser.findOne({ where: { email } });
   
@@ -114,6 +112,7 @@ export const loginUser = async (req, res) => {
 };
 
 export const registerUser = async (req, res) => {
+  const { User } = await import("../models/index.js");
   const { name, email, password } = req.body;
   const hashed = await bcrypt.hash(password, 10);
   const user = await User.create({ name, email, password: hashed });
@@ -122,6 +121,7 @@ export const registerUser = async (req, res) => {
 };
 
 export const registerSysUser = async (req, res) => {
+  const { SysUser } = await import("../models/index.js");
   const { name, email, password } = req.body;
 
   // Check if user with the same email already exists
