@@ -1,0 +1,51 @@
+{{> myhead}}
+<body class="bg-gray-100 font-sans">
+  <div class="flex min-h-screen">
+    {{> sidebar active='feedback'}}
+
+    <main class="flex-1 p-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-8">Feedback Center</h1>
+
+      <!-- Feedback Table -->
+      <div class="bg-white p-6 rounded-xl shadow-lg">
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4 border-b pb-3">All Submitted Feedback</h2>
+        {{#if feedback}}
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+              <thead class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <tr>
+                  <th class="py-3 px-6 text-left">Subject</th>
+                  <th class="py-3 px-6 text-left">Submitted By</th>
+                  <th class="py-3 px-6 text-center">Date Submitted</th>
+                  <th class="py-3 px-6 text-center">Status</th>
+                  <th class="py-3 px-6 text-center">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-700 text-sm">
+                {{#each feedback}}
+                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                  <td class="py-3 px-6 text-left whitespace-nowrap font-medium">{{this.subject}}</td>
+                  <td class="py-3 px-6 text-left">{{#if this.name}}{{this.name}}{{else}}<span class="italic text-gray-500">Anonymous</span>{{/if}}</td>
+                  <td class="py-3 px-6 text-center">{{this.createdAt}}</td>
+                  <td class="py-3 px-6 text-center">
+                    <span class="py-1 px-3 rounded-full text-xs {{#if (eq this.status 'New')}}bg-blue-200 text-blue-700{{else if (eq this.status 'In Review')}}bg-yellow-200 text-yellow-700{{else if (eq this.status 'Resolved')}}bg-green-200 text-green-700{{else}}bg-gray-200 text-gray-700{{/if}}">
+                      {{this.status}}
+                    </span>
+                  </td>
+                  <td class="py-3 px-6 text-center">
+                    <a href="/admin/feedback/view/{{this.id}}" class="text-indigo-600 hover:text-indigo-900 font-medium">View Details</a>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        {{else}}
+          <p class="text-gray-500 italic">No feedback has been submitted yet.</p>
+        {{/if}}
+      </div>
+    </main>
+  </div>
+{{> myfoot}}
+</body>
+</html>

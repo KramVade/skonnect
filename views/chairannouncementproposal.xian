@@ -1,0 +1,95 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{> chairsidebar}}
+
+        <main class="flex-1 p-8">
+            <h1 class="text-3xl font-bold mb-8">{{title}}</h1>
+
+            <!-- Pending Announcements -->
+            <div class="bg-white p-6 rounded-lg shadow-md mb-8">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Pending Approval</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 font-semibold text-gray-600">Title</th>
+                                <th class="p-3 font-semibold text-gray-600">Author</th>
+                                <th class="p-3 font-semibold text-gray-600">Position</th>
+                                <th class="p-3 font-semibold text-gray-600">Date Submitted</th>
+                                <th class="p-3 font-semibold text-gray-600 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#if pendingAnnouncements.length}}
+                                {{#each pendingAnnouncements}}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-3 font-medium">{{this.title}}</td>
+                                    <td class="p-3">{{this.author.name}}</td>
+                                    <td class="p-3 capitalize">{{this.author.position}}</td>
+                                    <td class="p-3">{{formatDate this.date_created}}</td>
+                                    <td class="p-3 text-center space-x-2">
+                                        <form action="/announcement/{{this.announcement_id}}/approve" method="POST" class="inline-block">
+                                            <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition-colors">Approve</button>
+                                        </form>
+                                        <form action="/announcement/{{this.announcement_id}}/reject" method="POST" class="inline-block">
+                                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 transition-colors">Reject</button>
+                                        </form>
+                                        <a href="#" class="text-blue-600 hover:underline text-sm">View Details</a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            {{else}}
+                                <tr>
+                                    <td colspan="5" class="p-4 text-center text-gray-500">No announcements are currently pending approval.</td>
+                                </tr>
+                            {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Reviewed Announcements History -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Reviewed Announcements</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 font-semibold text-gray-600">Title</th>
+                                <th class="p-3 font-semibold text-gray-600">Author</th>
+                                <th class="p-3 font-semibold text-gray-600">Status</th>
+                                <th class="p-3 font-semibold text-gray-600">Date Reviewed</th>
+                                <th class="p-3 font-semibold text-gray-600">Reviewed By</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#if otherAnnouncements.length}}
+                                {{#each otherAnnouncements}}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-3">{{this.title}}</td>
+                                    <td class="p-3">{{this.author.name}}</td>
+                                    <td class="p-3">
+                                        <span class="px-2 py-1 text-xs font-semibold rounded-full 
+                                            {{#if (eq this.status 'Approved')}}bg-green-200 text-green-800{{/if}}
+                                            {{#if (eq this.status 'Rejected')}}bg-red-200 text-red-800{{/if}}">
+                                            {{this.status}}
+                                        </span>
+                                    </td>
+                                    <td class="p-3">{{formatDate this.last_updated}}</td>
+                                    <td class="p-3">{{this.approver.name}}</td>
+                                </tr>
+                                {{/each}}
+                            {{else}}
+                                <tr>
+                                    <td colspan="5" class="p-4 text-center text-gray-500">No announcements have been reviewed yet.</td>
+                                </tr>
+                            {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}

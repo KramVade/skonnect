@@ -1,0 +1,5 @@
+This is a test document to verify that file serving works correctly.
+
+The file should display inline in the browser instead of downloading automatically.
+
+Test completed successfully!

@@ -1,0 +1,56 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{> treasidebar}}
+
+        <main class="flex-1 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold">{{title}}</h1>
+                <a href="/treasurer/financial-reports" class="text-blue-600 hover:underline">&larr; Back to All Reports</a>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-md max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div>
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Associated Project</h3>
+                        <p class="text-lg text-gray-800 mb-4">{{report.Project.project_title}}</p>
+
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Amount Allocated</h3>
+                        <p class="text-lg text-gray-800 mb-4">₱{{report.amount_allocated}}</p>
+
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Amount Spent</h3>
+                        <p class="text-lg text-gray-800 mb-4">₱{{report.amount_spent}}</p>
+
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Balance</h3>
+                        <p class="text-lg font-bold {{#if report.isBalancePositive}}text-green-600{{else}}text-red-600{{/if}} mb-4">
+                            ₱{{report.balance}}
+                        </p>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div>
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Status</h3>
+                        <p class="mb-4"><span class="px-3 py-1 text-sm font-semibold rounded-full bg-yellow-200 text-yellow-800">{{report.status}}</span></p>
+
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Date Submitted</h3>
+                        <p class="text-lg text-gray-800 mb-4">{{formatDate report.date_submitted}}</p>
+
+                        <h3 class="font-semibold text-gray-500 uppercase text-sm mb-1">Attachment</h3>
+                        {{#if report.attachments}}
+                            <a href="/file/{{getFileType report.attachments}}/{{getFilename report.attachments}}" target="_blank" class="text-blue-600 hover:underline break-all">{{getFilename report.attachments}}</a>
+                        {{else}}
+                            <p class="text-gray-500">No attachment provided.</p>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <!-- Remarks Section -->
+                <div class="mt-8 border-t pt-6">
+                    <h3 class="font-semibold text-gray-500 uppercase text-sm mb-2">Remarks</h3>
+                    <p class="text-gray-700 whitespace-pre-wrap">{{#if report.remarks}}{{report.remarks}}{{else}}No remarks were added.{{/if}}</p>
+                </div>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}

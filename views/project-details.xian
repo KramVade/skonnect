@@ -1,0 +1,114 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{#if (eq userPosition 'secretary')}}
+            {{> secsidebar}}
+        {{else if (eq userPosition 'councilor')}}
+            {{> counsidebar}}
+        {{else if (eq userPosition 'chairperson')}}
+            {{> chairsidebar}}
+        {{else if (eq userPosition 'admin')}}
+            {{> sidebar}}
+        {{/if}}
+
+        <main class="flex-1 p-8">
+            <div class="max-w-5xl mx-auto">
+                <!-- Header -->
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-800">{{project.project_title}}</h1>
+                        <p class="text-md text-gray-500">{{project.category}}</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-4 py-2 text-sm font-semibold rounded-full 
+                            {{#if (eq project.status 'Approved')}} bg-green-100 text-green-800 {{/if}}
+                            {{#if (eq project.status 'Pending')}} bg-yellow-100 text-yellow-800 {{/if}}
+                            {{#if (eq project.status 'Rejected')}} bg-red-100 text-red-800 {{/if}}
+                            {{#if (eq project.status 'In Progress')}} bg-blue-100 text-blue-800 {{/if}}
+                            {{#if (eq project.status 'Completed')}} bg-purple-100 text-purple-800 {{/if}}">
+                            {{project.status}}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Left Column -->
+                        <div class="md:col-span-2 space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 border-b pb-2 mb-2">Project Description</h3>
+                                <p class="text-gray-600 whitespace-pre-wrap">{{project.description}}</p>
+                            </div>
+                            {{#if project.remarks}}
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800 border-b pb-2 mb-2">Remarks</h3>
+                                <p class="text-gray-600 bg-gray-50 p-3 rounded-md">{{project.remarks}}</p>
+                            </div>
+                            {{/if}}
+                        </div>
+
+                        <!-- Right Column (Details) -->
+                        <div class="space-y-4">
+                            <h3 class="text-lg font-semibold text-gray-800 border-b pb-2">Details</h3>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Proposed By</p>
+                                <p class="text-md text-gray-800">{{#if project.proposer}}{{project.proposer.name}}{{else}}N/A{{/if}}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Date Proposed</p>
+                                <p class="text-md text-gray-800">{{formatDate project.date_proposed}}</p>
+                            </div>
+
+                            {{#if project.approved_by}}
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Approved By</p>
+                                <p class="text-md text-gray-800">{{#if project.approver}}{{project.approver.name}}{{else}}N/A{{/if}}</p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Date Approved</p>
+                                <p class="text-md text-gray-800">{{formatDate project.date_approved}}</p>
+                            </div>
+                            {{/if}}
+
+                            <hr>
+
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Budget Estimate</p>
+                                <p class="text-md font-semibold text-gray-800">₱{{formatCurrency project.budget_estimate}}</p>
+                            </div>
+
+                            {{#if project.actual_budget}}
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Actual Budget</p>
+                                <p class="text-md font-semibold text-gray-800">₱{{formatCurrency project.actual_budget}}</p>
+                            </div>
+                            {{/if}}
+
+                            <hr>
+
+                            {{#if project.attachment_path}}
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Attachment</p>
+                                <p class="text-md text-gray-800">
+                                    <div class="flex space-x-4">
+                                        <a href="/file/{{getFileType project.attachment_path}}/{{getFilename project.attachment_path}}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">View File</a>
+                                        <a href="/download/{{getFileType project.attachment_path}}/{{getFilename project.attachment_path}}" class="text-green-600 hover:underline">Download File</a>
+                                    </div>
+                                </p>
+                            </div>
+                            {{/if}}
+
+                            {{#if project.start_date}}
+                            <div>
+                                <p class="text-sm font-medium text-gray-500">Implementation Dates</p>
+                                <p class="text-md text-gray-800">{{formatDate project.start_date}} - {{formatDate project.end_date}}</p>
+                            </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}

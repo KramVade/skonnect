@@ -1,0 +1,13 @@
+node_modules/
+.env
+.DS_Store
+*.log
+public/uploads/*
+!public/uploads/.gitkeep
+!public/uploads/attachments/
+!public/uploads/attachments/*.pdf
+!public/uploads/attachments/*.txt
+!public/uploads/announcements/
+!public/uploads/announcements/*.jfif
+!public/uploads/announcements/*.jpg
+!public/uploads/announcements/*.png

@@ -1,0 +1,65 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{> treasidebar}}
+
+        <main class="flex-1 p-8">
+            <h1 class="text-3xl font-bold mb-6">Create New Financial Report</h1>
+
+            <div class="bg-white p-8 rounded-lg shadow-md max-w-4xl mx-auto">
+                <form action="/treasurer/financial-reports/create" method="POST" enctype="multipart/form-data">
+                    <div class="space-y-6">
+
+                        <div>
+                            <label for="project_id" class="block text-sm font-medium text-gray-700">Associated Project</label>
+                            <select id="project_id" name="project_id" class="mt-1 block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                <option value="">-- Select a Project --</option>
+                                {{#each projects}}
+                                    <option value="{{this.project_id}}">{{this.project_title}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="amount_allocated" class="block text-sm font-medium text-gray-700">Amount Allocated (PHP)</label>
+                                <div class="mt-1">
+                                    <input type="number" id="amount_allocated" name="amount_allocated" step="0.01" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="amount_spent" class="block text-sm font-medium text-gray-700">Amount Spent (PHP)</label>
+                                <div class="mt-1">
+                                    <input type="number" id="amount_spent" name="amount_spent" step="0.01" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="remarks" class="block text-sm font-medium text-gray-700">Remarks / Notes</label>
+                            <div class="mt-1">
+                                <textarea id="remarks" name="remarks" rows="4" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"></textarea>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="attachment" class="block text-sm font-medium text-gray-700">Attach Receipts/Report File</label>
+                            <div class="mt-1">
+                                <input type="file" id="attachment" name="attachment" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">You can upload a PDF, Word document, or image file.</p>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-8 flex justify-end space-x-4">
+                        <a href="/treasurer/financial-reports" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-300 transition-colors text-sm font-medium">Cancel</a>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors text-sm font-medium">
+                            Submit Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}

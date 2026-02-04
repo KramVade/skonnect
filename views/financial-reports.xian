@@ -1,0 +1,50 @@
+{{> myhead}}
+<body class="bg-gray-100">
+    <div class="flex min-h-screen">
+        {{> treasidebar}}
+
+        <main class="flex-1 p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-3xl font-bold">Financial Reports</h1>
+                <a href="/treasurer/financial-reports/create" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">Create New Report</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold text-gray-800 mb-4">Submitted Reports</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 font-semibold text-gray-600">Report Title</th>
+                                <th class="p-3 font-semibold text-gray-600">Associated Project</th>
+                                <th class="p-3 font-semibold text-gray-600">Date Submitted</th>
+                                <th class="p-3 font-semibold text-gray-600">Total Amount</th>
+                                <th class="p-3 font-semibold text-gray-600">Status</th>
+                                <th class="p-3 font-semibold text-gray-600 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#if reports}}
+                                {{#each reports}}
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="p-3">Financial Report for {{this.Project.project_title}}</td>
+                                    <td class="p-3">{{this.Project.project_title}}</td>
+                                    <td class="p-3">{{formatDate this.date_submitted}}</td>
+                                    <td class="p-3">₱{{this.amount_spent}}</td>
+                                    <td class="p-3"><span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-200 text-yellow-800">{{this.status}}</span></td>
+                                    <td class="p-3 text-center"><a href="/treasurer/financial-reports/view/{{this.report_id}}" class="text-blue-600 hover:underline">View</a></td>
+                                </tr>
+                                {{/each}}
+                            {{else}}
+                                <tr>
+                                    <td colspan="6" class="p-4 text-center text-gray-500">No financial reports have been submitted yet.</td>
+                                </tr>
+                            {{/if}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+{{> myfoot}}
