@@ -51,6 +51,14 @@ try {
     logging: false // Set to console.log to see SQL queries
   });
   
+  // Override sync method to prevent automatic syncing
+  const originalSync = sequelize.sync.bind(sequelize);
+  sequelize.sync = (options = {}) => {
+    console.log('🚫 Database sync disabled to prevent schema conflicts');
+    console.log('💡 Use migration scripts instead: npm run migrate:prod');
+    return Promise.resolve();
+  };
+  
   console.log('✅ Database connection configured successfully.');
 } catch (error) {
   console.error('❌ Unable to configure database:', error.message);
